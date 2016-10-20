@@ -1,0 +1,16 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Vars.cs">
+    <Files>
+      <File FileName="Assets\Vars.cs" Line="23" Column="67" />
+      <File FileName="Assets\Weed.cs" Line="218" Column="2" />
+      <File FileName="Assets\Inv.cs" Line="11" Column="63" />
+      <File FileName="Assets\Upgrades.cs" Line="326" Column="31" />
+      <File FileName="Assets\TravelScript.cs" Line="64" Column="23" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

@@ -1,0 +1,42 @@
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\Assembly-CSharp.dll
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\Assembly-CSharp.pdb
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\UnityEditor.dll
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\UnityEngine.dll
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\UnityEngine.Networking.dll
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\UnityEngine.UI.dll
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\Mono.Cecil.dll
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\Unity.SerializationLogic.dll
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\Unity.DataContract.dll
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\Unity.UNetWeaver.dll
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\Unity.CecilTools.dll
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\UnityEngine.xml
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\UnityEditor.xml
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\UnityEngine.UI.xml
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\UnityEngine.Networking.xml
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\obj\Debug\Assembly-CSharp.dll
+D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\obj\Debug\Assembly-CSharp.pdb
+D:\Users\Gin\Desktop\Dude Weed\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+D:\Users\Gin\Desktop\Dude Weed\obj\Debug\Assembly-CSharp.dll
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\Assembly-CSharp.dll
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\Assembly-CSharp.pdb
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\UnityEditor.dll
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\UnityEngine.dll
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\UnityEngine.Networking.dll
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\UnityEngine.UI.dll
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\Mono.Cecil.dll
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\Unity.SerializationLogic.dll
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\Unity.DataContract.dll
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\Unity.UNetWeaver.dll
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\Unity.CecilTools.dll
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\UnityEngine.xml
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\UnityEditor.xml
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\UnityEngine.UI.xml
+D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\UnityEngine.Networking.xml
+D:\Users\Gin\Desktop\Dude Weed\obj\Debug\Assembly-CSharp.pdb
