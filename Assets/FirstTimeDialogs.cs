@@ -13,7 +13,6 @@ public class FirstTimeDialogs : MonoBehaviour {
 	public static int stage;
 
 	void Start(){
-		stage = 0;
 	}
 
 	void OnEnable(){
@@ -24,7 +23,7 @@ public class FirstTimeDialogs : MonoBehaviour {
 		if(Vars.isFirst){
 			Dialog ();
 		}
-		Debug.Log ("Bonus clicked");
+		Debug.Log ("Bonus clicXX");
 		Debug.Log(stage);
 	}
 

@@ -102,7 +102,7 @@ public class Vars : MonoBehaviour {
 
 		data.sIsFirst	=	isFirst;
 		data.sStage =	FirstTimeDialogs.stage;
-		data.sPlace	= TravelScript.PLACE;
+		data.sPlace	= 	TravelScript.PLACE;
 		//-------------------------------------OFFLINE PROGRESS
 		data.sDateTime = DateTime.Now;
 		//-------------------------------------INV
@@ -204,7 +204,10 @@ public class Vars : MonoBehaviour {
 			isFirst = data.sIsFirst;
 			FirstTimeDialogs.stage	=	data.sStage;
 			TravelScript.PLACE = data.sPlace;
+
 			Debug.Log ("LOADED :" + TravelScript.PLACE);
+			Debug.Log ("LOADED STAGEEE: " + FirstTimeDialogs.stage);
+			Debug.Log (data.sStage);
 			//-------------------------------------INV
 			Inv.MONEY	=	data.sMoney;
 			Inv.SEEDS	=	data.sSeeds;
@@ -301,6 +304,7 @@ public class Vars : MonoBehaviour {
 			DebugText.text += "\n _FIRST_ ";
 			isFirst = true;
 			TravelScript.PLACE = 0;
+			FirstTimeDialogs.stage = 0;
 			Inv.MONEY = LAMPPRICES [0] + POTPRICES [0] + SEEDPRICES [0] * 2;
 			WEED0.isUnlocked = true;
 			WEED0.RedrawSprite ();

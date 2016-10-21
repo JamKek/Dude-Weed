@@ -43,7 +43,7 @@ public class TravelScript : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.Escape)){
 			Debug.Log(FirstTimeDialogs.stage);
 		}
-		if (Input.GetKeyDown (KeyCode.Escape) && (FirstTimeDialogs.stage == 11 || FirstTimeDialogs.stage == 13) ){
+		if (Input.GetKeyDown (KeyCode.Escape) && (FirstTimeDialogs.stage == 11 || FirstTimeDialogs.stage == 13 || !Vars.isFirst) ){
 			if (Inv.isOpened) {
 				invPanel.anchoredPosition = new Vector2 (0, 740);
 				Inv.isOpened = false;

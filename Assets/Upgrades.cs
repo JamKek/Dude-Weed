@@ -485,19 +485,21 @@ public class Upgrades : MonoBehaviour {
 	public void BuyUpgrade(int ID){ //parts:  0=pot 1=lamp
 		switch (ID) { //id is the selected plant
 		case 0:
-			if ( (partID == 0 && WEED0.potID < potID) || (partID==0 && !WEED0.isBuilt[0]) ) {
+			if ( (partID == 0 && WEED0.potID < potID) || (partID==0 && !WEED0.isBuilt[1]) ) {
 				if (Vars.isFirst) { FirstTimeDialogs.stage++; }
 				Inv.MONEY -= Vars.POTPRICES[potID];
 				WEED0.potID = potID;
 				WEED0.pot.gameObject.SetActive (true);
+				WEED0.isBuilt [1] = true;
 				WEED0.RedrawSprite ();
 				CloseUpgrade ();
 			}
-			else if ( (partID == 1 && WEED0.lampID < lampID) || (partID == 1 && !WEED0.isBuilt[0]) ) {
+			else if ( (partID == 1 && WEED0.lampID < lampID) || (partID == 1 && !WEED0.isBuilt[2]) ) { // TODO APPLY IS BUILD[index] TO OTHER WEEDS
 				if (Vars.isFirst) { FirstTimeDialogs.stage++; }
 				Inv.MONEY -= Vars.LAMPPRICES [lampID];
 				WEED0.lampID = lampID;
 				WEED0.lamp.gameObject.SetActive (true);
+				WEED0.isBuilt [2] = true;
 				WEED0.RedrawSprite ();
 				CloseUpgrade ();
 			}
