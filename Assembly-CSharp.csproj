@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\FirstTimeDialogs.cs" />
      <Compile Include="Assets\Inv.cs" />
+     <Compile Include="Assets\Tool1.cs" />
      <Compile Include="Assets\TravelScript.cs" />
      <Compile Include="Assets\Upgrades.cs" />
      <Compile Include="Assets\Vars.cs" />

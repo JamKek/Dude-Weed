@@ -7,9 +7,16 @@ public class Inv : MonoBehaviour {
 	public static float MONEY;
 	public static int[] SEEDS	=	{0,0,0,0};
 	public static int[] NUGS	=	{0,0,0,0};
+	public static int[] MISC	=	{0}; //0: bad paper
 	public static bool[]SPECIAL	=	{ false,	false,	false,	false,	false, false}; //TODO 
-	//===========================|     2/5        t      3/5      t      4/5      5/5
+	//===========================|     2/5        t0      3/5      t1      4/5      5/5
 
+
+	//TODO: conv all to like this
+	public Image[]	invMiscImages;
+	public Text[]	invMiscTexts;
+
+	//TODO
 	public UnityEngine.UI.Text MoneyDisplay;
 	public RectTransform invSeeds;
 	public RectTransform invNugs;
@@ -64,6 +71,19 @@ public class Inv : MonoBehaviour {
 	}
 
 	void Update(){
+		//NEW MENU SYSTEM
+		for (int i = 0;i < invMiscImages.Length;i++){
+			switch (i) {
+			case 0:
+				invMiscImages [i].sprite = Resources.Load<Sprite> ("Images/Misc/seedPacket");
+				break;
+			}
+		}
+
+		for (int i = 0; i < invMiscTexts.Length; i++) {
+			invMiscTexts[i].text = MISC[i].ToString();
+		}
+
 		for (int s = 0;s < invSeedsButtons.Length;s++)
 		{
 			invSeedsButtons[s].text = SEEDS[s].ToString();

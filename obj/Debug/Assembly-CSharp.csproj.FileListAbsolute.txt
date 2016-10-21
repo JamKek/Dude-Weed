@@ -19,8 +19,6 @@ D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\UnityEngine.UI.xml
 D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\Temp\bin\Debug\UnityEngine.Networking.xml
 D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\obj\Debug\Assembly-CSharp.dll
 D:\Users\Gin\Desktop\DudeWeedLmao\DudeWeedLmao\obj\Debug\Assembly-CSharp.pdb
-D:\Users\Gin\Desktop\Dude Weed\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
-D:\Users\Gin\Desktop\Dude Weed\obj\Debug\Assembly-CSharp.dll
 D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\Assembly-CSharp.dll
 D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\Assembly-CSharp.pdb
 D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\UnityEditor.dll
@@ -39,4 +37,6 @@ D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\UnityEngine.xml
 D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\UnityEditor.xml
 D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\UnityEngine.UI.xml
 D:\Users\Gin\Desktop\Dude Weed\Temp\bin\Debug\UnityEngine.Networking.xml
+D:\Users\Gin\Desktop\Dude Weed\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+D:\Users\Gin\Desktop\Dude Weed\obj\Debug\Assembly-CSharp.dll
 D:\Users\Gin\Desktop\Dude Weed\obj\Debug\Assembly-CSharp.pdb

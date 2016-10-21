@@ -18,6 +18,7 @@ public class TravelScript : MonoBehaviour {
 	public RectTransform SettingsPanel;
 	public RectTransform invPanel;
 	public RectTransform seedMenu;
+	public RectTransform tool1Panel;
 
 	Vector2 panelON		=	new Vector2 (0, 0);
 	Vector2 outOFF		=	new Vector2(0,738);
@@ -26,9 +27,20 @@ public class TravelScript : MonoBehaviour {
 	Vector2 nugshopOff	=	new	Vector2(-1280,738);
 	Vector2	seedshopOFF	=	new	Vector2(2560,0);
 	Vector2	storeshopOFF=	new	Vector2(1280,-738);
+	Vector2 tool1OFF	=	new Vector2(2560,-720);
 
 	public static int PLACE;
 	public static bool isReload;
+
+	void TurnAllOff(){
+		outsidePanel.anchoredPosition	= outOFF;
+		cityPanel.anchoredPosition		= cityOFF;
+		garagePanel.anchoredPosition	= garageOFF;
+		storeShopPanel.anchoredPosition	= storeshopOFF;
+		seedShopPanel.anchoredPosition	= seedshopOFF;
+		nugShopPanel.anchoredPosition	= nugshopOff;
+		tool1Panel.anchoredPosition		= tool1OFF;
+	}
 
 	void Start(){
 		SettingsPanel.gameObject.SetActive (false);
@@ -130,6 +142,9 @@ public class TravelScript : MonoBehaviour {
 		case 6:	//StoreShop
 			GoToCity ();
 			break;
+		case 8: //Tool1
+			GoToGarage ();
+			break;
 		}
 	}
 
@@ -162,16 +177,14 @@ public class TravelScript : MonoBehaviour {
 		case 6:	//StoreShop
 			GoToStoreShop();
 			break;
+		case 8: //Tool1
+			GoToTool1Panel();
+			break;
 		}
 	}
 
 	public void GoHome(){
-			outsidePanel.anchoredPosition	= outOFF;
-			cityPanel.anchoredPosition		= cityOFF;
-			garagePanel.anchoredPosition	= garageOFF;
-			storeShopPanel.anchoredPosition	= storeshopOFF;
-			seedShopPanel.anchoredPosition	= seedshopOFF;
-			nugShopPanel.anchoredPosition	= nugshopOff;
+			TurnAllOff ();
 			PLACE =	0;
 			if (Vars.isFirst && FirstTimeDialogs.stage >= 12) {
 			//case 14
@@ -187,58 +200,40 @@ public class TravelScript : MonoBehaviour {
 			}
 	}
 	public void GoOutside(){
+			TurnAllOff ();
 			outsidePanel.anchoredPosition	= panelON;
-			cityPanel.anchoredPosition		= cityOFF;
-			garagePanel.anchoredPosition	= garageOFF;
-			storeShopPanel.anchoredPosition	= storeshopOFF;
-			seedShopPanel.anchoredPosition	= seedshopOFF;
-			nugShopPanel.anchoredPosition	= nugshopOff;
 			PLACE = 1;
 	}
 	public void GoToCity(){
+			TurnAllOff ();
 			cityPanel.anchoredPosition		= panelON;
-			outsidePanel.anchoredPosition	= outOFF;
-			garagePanel.anchoredPosition	= garageOFF;
-			storeShopPanel.anchoredPosition	= storeshopOFF;
-			seedShopPanel.anchoredPosition	= seedshopOFF;
-			nugShopPanel.anchoredPosition	= nugshopOff;
 			PLACE = 2;
 	}
 	public void GoToGarage(){
+			TurnAllOff ();
 			garagePanel.anchoredPosition	= panelON;
-			outsidePanel.anchoredPosition	= outOFF;
-			cityPanel.anchoredPosition		= cityOFF;
-			storeShopPanel.anchoredPosition	= storeshopOFF;
-			seedShopPanel.anchoredPosition	= seedshopOFF;
-			nugShopPanel.anchoredPosition	= nugshopOff;
 			PLACE = 3;
 	}
 	public void GoToNugShop(){
+			TurnAllOff ();
 			nugShopPanel.anchoredPosition	= panelON;
-			seedShopPanel.anchoredPosition	= seedshopOFF;
-			storeShopPanel.anchoredPosition	= storeshopOFF;
-			garagePanel.anchoredPosition	= garageOFF;
-			outsidePanel.anchoredPosition	= outOFF;
-			cityPanel.anchoredPosition		= cityOFF;
 			PLACE = 4;
 	}
 	public void GoToSeedShop(){
+			TurnAllOff ();
 			seedShopPanel.anchoredPosition	= panelON;
-			nugShopPanel.anchoredPosition	= nugshopOff;
-			storeShopPanel.anchoredPosition	= storeshopOFF;
-			garagePanel.anchoredPosition	= garageOFF;
-			outsidePanel.anchoredPosition	= outOFF;
-			cityPanel.anchoredPosition		= cityOFF;
 			PLACE = 5;
 	}
 	public void GoToStoreShop(){
+			TurnAllOff ();
 			storeShopPanel.anchoredPosition	= panelON;
-			seedShopPanel.anchoredPosition	= seedshopOFF;
-			nugShopPanel.anchoredPosition	= nugshopOff;
-			garagePanel.anchoredPosition	= garageOFF;
-			outsidePanel.anchoredPosition	= outOFF;
-			cityPanel.anchoredPosition		= cityOFF;
 			PLACE = 6;
 	}
-	//---------------------------- 0:Home 1:Outside 2:City 3:Garage 4:NugShop 5:SeedShop 6:StoreShop|||
+
+	public void GoToTool1Panel(){
+			TurnAllOff ();
+			tool1Panel.anchoredPosition = panelON;
+			PLACE = 8;
+	}
+	//---------------------------- 0:Home 1:Outside 2:City 3:Garage 4:NugShop 5:SeedShop 6:StoreShop 8:Tool1|||
 }
