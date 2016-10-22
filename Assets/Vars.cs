@@ -7,324 +7,234 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 public class Vars : MonoBehaviour {
-
-	public Weed WEED0;
-	public Weed WEED1;
-	public Weed WEED2;
-	public Weed WEED3;
-	public Weed WEED4;
-
+	
+	//_______W_E_E_D_S______
+	public Weed[] WEEDS;
+	//----------------
+	//
+	//________________________________________________S_E_E_D_S___________
+	public static string[]	SEEDNAMES	=	{	"Shit",	"Meh",	"Better"};	/// Array of seed prices
+	public static int[]		SEEDPRICES	=	{	12,		40,		250		};	/// Array of seed times
+	public static float[]	SEEDTIMES	=	{	120f,	720f,	1800f	};	/// Array of nug prices
+	public static int[]		NUGPRICES	=	{	6,		12,		30		};	/// Array of min/max values for nugs in rng
+	public static int[,]	NUGMINMAX	=	{ 	{0, 4},	{2,10},	{4,16}	};	/// Array of min/max values for seeds in rng
+	public static int[,]	SEEDMINMAX	=	{ 	{1,10},	{0, 4},	{0, 2}	};	/// Array of seed sprites, to declare size
+	public static Sprite[]	SEEDSPRITES =	{	null,	null,	null	};	//==========================================DEFINE NEW PLANTS HERE_|
+	public static Sprite[]	NUGSPRITES	=	{	null,	null,	null	};
+	public static Sprite[,]	PLANTSPRITES=	{	{null,null,null,null,null}	,	//okay
+												{null,null,null,null,null}	,	// [i][k]
+												{null,null,null,null,null}	};	// i= plantID, k, growth id,01235=0,25,50,75,100...
+	//-----------------------------------------------------------------------
+	//
+	//___________________________________________L_A_M_P_S_______
+	public static string[]	LAMPNAMES	=	{	"Shit",	"Cheap"	};
+	public static int[]		LAMPPRICES	=	{	30,		90		};
+	public static float[]	LAMPMULTIS	=	{	0.5f,	1f		};
+	public static Sprite[]	LAMPSPRITES	=	{	null,	null	};
+	//------------------------------------------------------------
+	//
+	//________________________________________________________P_O_T_S________________________
+	public static string[]	POTNAMES	=	{	"Broken",	"Cheap",	"Plastic",	"Nice"	};	//Name of the pot
+	public static int[]		POTPRICES	=	{	5,			60,			200,		500		};		//Price of the pot
+	public static float[]	POTMULTIS	=	{	0.5f,		1f,			1.5f,		2f		};		//Pot multiplier
+	public static Sprite[]	POTSPRITES	=	{	null,		null,		null,		null	};
+	//-----------------------------------------------------------------------------------
+	//
+	//_____________________TOOLS
+	public static Sprite[] TOOLSPRITES	=	{	null,	null};
+	//---------------------------
+	//______________________________________________S_P_E_C_I_A_L_S_______________________________
+	public static string[]	SPECIALNAMES	=	{	"Second pot!","Rolling machine!","Third pot!",
+													"Grinder!","Fifth pot?!","The final pot"};
+	public static int[]		SPECIALPRICES	=	{	10000,	30000,	40000,	80000,	90000,	1000000};
+	public static string[]	SPECIALDESCRIPTIONS	= {
+		"Buy a second pot! \n Why not?! \n Don't stop!",
+		"Rolling machine for all your rolling needs!",
+		"Third pot for your third eye!",
+		"Finally a grinder to grind up all those useless seeds!",
+		"A fourth pot?  Why do you need so many?",
+		"THIS IS IT'S FINAL FORM"	};
+	//--------------------------------
+	//
+	//____________________________First_time_launch_dialogs
 	public RectTransform FTDPanel;
 	public RectTransform FTDPanelBlocker;
 	public RectTransform FTDPanelBlocker2;
+	//------------------------------------
+	//
+	//_____O_T_H_E_R___
+	public static Vector2[]	WATERLEVELS;
+	//-----------------
+	//
+	//______________VARIABLES
 	string SavePath;
-
-	public Text DebugText;
-	public static bool isReady = false;
 	public static bool isFirst;
+	public static bool isReady = false;
+	//----------------------------------
 
-	// Define New Plants Here ==============|	Seed0	Seed1	Seed2
-	public static string[]	SEEDNAMES	=	{	"Shit",	"Meh",	"Better"};	//Name of the seed
-	public static int[]		SEEDPRICES	=	{	12,		40,		250		};	//Price of the seed
-	public static float[]	SEEDTIMES	=	{	120f,	720f,	1800f	};	//How long it grows
-	public static int[]		NUGPRICES	=	{	6,		12,		20		};	//Price of nug
-	public static int[,]	NUGMINMAX	=	{ 	{0, 4},	{2,10},	{2,12}	};	//MinMax nug amnt on harvest
-	public static int[,]	SEEDMINMAX	=	{ 	{1,10},	{0, 4},	{0, 2}	};	//MinMax seed amnt on harvest
+	/* ===================================================================================================================FUNCTIONS!
+				  JJJJJJJJJJJ                                          KKKKKKKKK    KKKKKKK                    kkkkkkkk           
+				  J:::::::::J                                          K:::::::K    K:::::K                    k::::::k           
+				  J:::::::::J                                          K:::::::K    K:::::K                    k::::::k           
+				  JJ:::::::JJ                                          K:::::::K   K::::::K                    k::::::k           
+					J:::::J    aaaaaaaaaaaaa      mmmmmmm    mmmmmmm   KK::::::K  K:::::KKK    eeeeeeeeeeee     k:::::k    kkkkkkk
+					J:::::J    a::::::::::::a   mm:::::::m  m:::::::mm   K:::::K K:::::K     ee::::::::::::ee   k:::::k   k:::::k 
+					J:::::J    aaaaaaaaa:::::a m::::::::::mm::::::::::m  K::::::K:::::K     e::::::eeeee:::::ee k:::::k  k:::::k  
+					J:::::j             a::::a m::::::::::::::::::::::m  K:::::::::::K     e::::::e     e:::::e k:::::k k:::::k   
+					J:::::J      aaaaaaa:::::a m:::::mmm::::::mmm:::::m  K:::::::::::K     e:::::::eeeee::::::e k::::::k:::::k    
+		JJJJJJJ		J:::::J    aa::::::::::::a m::::m   m::::m   m::::m  K::::::K:::::K    e:::::::::::::::::e  k:::::::::::k     
+		J:::::J		J:::::J   a::::aaaa::::::a m::::m   m::::m   m::::m  K:::::K K:::::K   e::::::eeeeeeeeeee   k:::::::::::k     
+		J::::::J   J::::::J  a::::a    a:::::a m::::m   m::::m   m::::mKK::::::K  K:::::KKKe:::::::e            k::::::k:::::k    
+		J:::::::JJJ:::::::J  a::::a    a:::::a m::::m   m::::m   m::::mK:::::::K   K::::::Ke::::::::e          k::::::k k:::::k   
+		 JJ:::::::::::::JJ   a:::::aaaa::::::a m::::m   m::::m   m::::mK:::::::K    K:::::K e::::::::eeeeeeee  k::::::k  k:::::k  
+		   JJ:::::::::JJ      a::::::::::aa:::am::::m   m::::m   m::::mK:::::::K    K:::::K  ee:::::::::::::e  k::::::k   k:::::k 
+			 JJJJJJJJJ         aaaaaaaaaa  aaaammmmmm   mmmmmm   mmmmmmKKKKKKKKK    KKKKKKK    eeeeeeeeeeeeee  kkkkkkkk    kkkkkkk
+	======================================================================================================================FUNCTIONS!*/
 
-
-	//===========================================================	UPGRADES
-
-	//--------------------Lamps
-	public static string[]	LAMPNAMES	=	{	"Shit",	"Cheap"	};	//Name of the lamp
-	public static int[] 	LAMPPRICES	=	{	30,		90		};	//Price of the lamp
-	public static float[]	LAMPMULTIS	=	{	0.5f,	1f		};	//Lamp multiplier
-
-	//--------------------Pots
-	public static string[]	POTNAMES	=	{	"Broken",	"Cheap",	"Plastic",	"Nice"};	//Name of the pot
-	public static int[] 	POTPRICES	=	{	5,			60,			200,		500};		//Price of the pot
-	public static float[]	POTMULTIS	=	{	0.5f,		1f,			1.5f,		2f };		//Pot multiplier
-
-	//--------------------Specials
-	public static string[] 	SPECIALNAMES = {"Second pot!","Rolling machine!","Third pot!","Grinder!","Fifth pot?!","The final pot"};
-	public static string[]	SPECIALDESCRIPTIONS = {	"Buy a second pot! \n Why not?! \n Don't stop!",
-													"Rolling machine for all your rolling needs!",
-													"Third pot for your third eye!",
-													"Finally a grinder to grind up all those useless seeds!",
-													"A fourth pot?  Why do you need so many?",
-													"THIS IS IT'S FINAL FORM"};
-	public static int[]		SPECIALPRICES = {10000,	30000, 40000, 80000, 90000, 1000000 };
-
-	//=========================================================== UPGRADES
-
-
-	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=FUNCTIONS
 	void Start () {
-		SavePath = Application.persistentDataPath + Path.DirectorySeparatorChar + "saveTokes.dank";
-		DebugText.text += " Start ";
-		DebugText.text += " SP: " + SavePath + "\n";
+		//__________________________________________Load Resources
+		for (int i = 0; i < SEEDNAMES.Length; i++) {
+			SEEDSPRITES[i]	= Resources.Load<Sprite>("Images/Seeds/seed_" + i);
+			NUGSPRITES [i]	= Resources.Load<Sprite>("Images/Nugs/nug_" + i);
 
-		FTDPanel.gameObject.SetActive (false);
+			for (int j = 0; j < 5; j++){ PLANTSPRITES[i,j] = Resources.Load<Sprite>("Images/Plants/plant_"+ i +"_"+ j); }
+		}
+		for (int i = 0; i < POTSPRITES.Length; i++)	{ POTSPRITES[i]	= Resources.Load<Sprite>("Images/Pots/pot_"	+ i); }
+		for (int i = 0; i < LAMPSPRITES.Length; i++){ LAMPSPRITES[i]= Resources.Load<Sprite>("Images/Lamps/lamp_" + i); }
+		for (int i = 0; i < TOOLSPRITES.Length; i++){ TOOLSPRITES[i]= Resources.Load<Sprite>("Images/Tools/tool_" + i); }
+
+		WATERLEVELS		= new Vector2[5];
+		WATERLEVELS[0]	= new Vector2(0, -27.5f);
+		WATERLEVELS[1]	= new Vector2(0, -69.5f);
+		WATERLEVELS[2]	= new Vector2(0, -99.3f);
+		WATERLEVELS[3]	= new Vector2(0, -129.3f);
+		WATERLEVELS[4]	= new Vector2 (0, 0);
+		//---------------------------------------------------------------------------------------
+
+		SavePath = Application.persistentDataPath + Path.DirectorySeparatorChar + "saveTokes.dank";
 		Load();
 		isReady = true;
 	}
 
 	void OnApplicationFocus(bool hasFocus){
-		if (hasFocus && isReady) {
-			DebugText.text += " Focus! ";
-
-			Load ();
-		}
-		if (!hasFocus && isReady) {
-			DebugText.text += " FocusLost ";
-
-			Save ();
-		}
+		if (hasFocus && isReady) { Load (); }
+		if (!hasFocus && isReady) { Save (); }
 	}
-
 	public void QuitGame(){
 		Save ();
 		Application.Quit ();
 	}
 
-	//===================SAVE/LOAD FUNCTIONS
+	///	Saves the variables to a save file.
 	public void Save(){
-		DebugText.text += " |Save| \n";
-		Debug.Log ("Save() at " + Time.time);
-
 		BinaryFormatter binFor = new BinaryFormatter ();
-
-		if (File.Exists(SavePath) ) {
-			File.Delete (SavePath);
-		}
-			
+		if( File.Exists(SavePath)){ File.Delete(SavePath);}
 		FileStream file = File.Create(SavePath);
 		PlayerData data = new PlayerData();
-
+		
+		//___________________________First Time variables
 		data.sIsFirst	=	isFirst;
-		data.sStage =	FirstTimeDialogs.stage;
-		data.sPlace	= 	TravelScript.PLACE;
-		//-------------------------------------OFFLINE PROGRESS
-		data.sDateTime = DateTime.Now;
-		//-------------------------------------INV
+		data.sStage		=	FirstTimeDialogs.stage;
+		//-----------------------------------------
+		//
+		//_____________________________________Current place
+		data.sPlace		=	TravelScript.PLACE;
+		//--------------------------------------
+		//
+		//____________________________OFFLINE PROGRESS
+		data.sDateTime	=	DateTime.Now;
+		//----------------------------
+		//
+		//________________________INV
 		data.sMoney	=	Inv.MONEY;
 		data.sSeeds	=	Inv.SEEDS;
 		data.sNugs	=	Inv.NUGS;
+		data.sMisc	=	Inv.MISC;
 		data.sSpecial=	Inv.SPECIAL;
-
-		//-------------------------------------WEEDS
-		data.timeLeft[0]	=	WEED0.timeLeft;
-		data.seedTime[0]	=	WEED0.seedTime;
-		data.potID[0]		=	WEED0.potID;
-		data.seedID[0]		=	WEED0.seedID;
-		data.lampID[0]		=	WEED0.lampID;
-		data.growthPerc[0]	=	WEED0.growthPerc;
-		data.growthStage[0]	=	WEED0.growthStage;
-		data.WaterS[0]		=	WEED0.WaterS;
-		data.isEmpty[0]		=	WEED0.isEmpty;
-		data.isGrown[0]		=	WEED0.isGrown;
-		data.isUnlocked[0]	=	WEED0.isUnlocked;
-		data.isBuilt[0] 	=	WEED0.isBuilt;
-
-		data.timeLeft[1]	=	WEED1.timeLeft;
-		data.seedTime[1]	=	WEED1.seedTime;
-		data.potID[1]		=	WEED1.potID;
-		data.seedID[1]		=	WEED1.seedID;
-		data.lampID[1]		=	WEED1.lampID;
-		data.growthPerc[1]	=	WEED1.growthPerc;
-		data.growthStage[1]	=	WEED1.growthStage;
-		data.WaterS[1]		=	WEED1.WaterS;
-		data.isEmpty[1]		=	WEED1.isEmpty;
-		data.isGrown[1]		=	WEED1.isGrown;
-		data.isUnlocked[1]	=	WEED1.isUnlocked;
-		data.isBuilt[1] 	=	WEED1.isBuilt;
-
-		data.timeLeft[2]	=	WEED2.timeLeft;
-		data.seedTime[2]	=	WEED2.seedTime;
-		data.potID[2]		=	WEED2.potID;
-		data.seedID[2]		=	WEED2.seedID;
-		data.lampID[2]		=	WEED2.lampID;
-		data.growthPerc[2]	=	WEED2.growthPerc;
-		data.growthStage[2]	=	WEED2.growthStage;
-		data.WaterS[2]		=	WEED2.WaterS;
-		data.isEmpty[2]		=	WEED2.isEmpty;
-		data.isGrown[2]		=	WEED2.isGrown;
-		data.isUnlocked[2]	=	WEED2.isUnlocked;
-		data.isBuilt[2] 	=	WEED2.isBuilt;
-
-		data.timeLeft[3]	=	WEED3.timeLeft;
-		data.seedTime[3]	=	WEED3.seedTime;
-		data.potID[3]		=	WEED3.potID;
-		data.seedID[3]		=	WEED3.seedID;
-		data.lampID[3]		=	WEED3.lampID;
-		data.growthPerc[3]	=	WEED3.growthPerc;
-		data.growthStage[3]	=	WEED3.growthStage;
-		data.WaterS[3]		=	WEED3.WaterS;
-		data.isEmpty[3]		=	WEED3.isEmpty;
-		data.isGrown[3]		=	WEED3.isGrown;
-		data.isUnlocked[3]	=	WEED3.isUnlocked;
-		data.isBuilt[3] 	=	WEED3.isBuilt;
-
-		data.timeLeft[4]	=	WEED4.timeLeft;
-		data.seedTime[4]	=	WEED4.seedTime;
-		data.potID[4]		=	WEED4.potID;
-		data.seedID[4]		=	WEED4.seedID;
-		data.lampID[4]		=	WEED4.lampID;
-		data.growthPerc[4]	=	WEED4.growthPerc;
-		data.growthStage[4]	=	WEED4.growthStage;
-		data.WaterS[4]		=	WEED4.WaterS;
-		data.isEmpty[4]		=	WEED4.isEmpty;
-		data.isGrown[4]		=	WEED4.isGrown;
-		data.isUnlocked[4]	=	WEED4.isUnlocked;
-		data.isBuilt[4] 	=	WEED4.isBuilt;
-
-		if(WEED0.pot.gameObject.activeInHierarchy)	{WEED0.isBuilt[1] = true;}
-		if(WEED0.lamp.gameObject.activeInHierarchy)	{WEED0.isBuilt[2] = true;}
-		if(WEED1.pot.gameObject.activeInHierarchy)	{WEED1.isBuilt[1] = true;}
-		if(WEED1.lamp.gameObject.activeInHierarchy)	{WEED1.isBuilt[2] = true;}
-		if(WEED2.pot.gameObject.activeInHierarchy)	{WEED2.isBuilt[1] = true;}
-		if(WEED2.lamp.gameObject.activeInHierarchy)	{WEED2.isBuilt[2] = true;}
-		if(WEED3.pot.gameObject.activeInHierarchy)	{WEED3.isBuilt[1] = true;}
-		if(WEED3.lamp.gameObject.activeInHierarchy)	{WEED3.isBuilt[2] = true;}
-		if(WEED4.pot.gameObject.activeInHierarchy)	{WEED4.isBuilt[1] = true;}
-		if(WEED4.lamp.gameObject.activeInHierarchy)	{WEED4.isBuilt[2] = true;}
-
+		//--------------------------
+		//
+		//_____________________________________WEEDS
+		for (int i = 0; i < WEEDS.Length; i++) {
+			data.timeLeft[i]	=	WEEDS[i].timeLeft;
+			data.seedTime[i]	=	WEEDS[i].seedTime;
+			data.potID[i]		=	WEEDS[i].potID;
+			data.seedID[i]		=	WEEDS[i].seedID;
+			data.lampID[i]		=	WEEDS[i].lampID;
+			data.growthPerc[i]	=	WEEDS[i].growthPerc;
+			data.growthStage[i]	=	WEEDS[i].growthStage;
+			data.WaterS[i]		=	WEEDS[i].WaterS;
+			data.isEmpty[i]		=	WEEDS[i].isEmpty;
+			data.isGrown[i]		=	WEEDS[i].isGrown;
+			data.isUnlocked[i]	=	WEEDS[i].isUnlocked;
+			data.isBuilt[i]		=	WEEDS[i].isBuilt;
+			if(WEEDS[i].pot.gameObject.activeInHierarchy)	{WEEDS[i].isBuilt[1] = true;}
+			if(WEEDS[i].lamp.gameObject.activeInHierarchy)	{WEEDS[i].isBuilt[2] = true;}
+		}
+		//-------------------------------------------------------------------------------
 		binFor.Serialize (file, data);
 		file.Close ();
 	}
+	/// Sets variables from a save file.
+	/// If save file does not exist,
+	/// it initiates First Time dialog
 	public void Load(){
-		DebugText.text += " |LOAD|";
-		Debug.Log ("Load() at " + Time.time);
-
-			if (File.Exists(SavePath )) {
+		if ( !File.Exists(SavePath)) {
+			isFirst = true;
+			TravelScript.PLACE = 0;
+			FirstTimeDialogs.stage = 0;
+			WEEDS[0].isUnlocked = true;
+			WEEDS[0].RedrawSprite ();
+			Inv.MONEY = LAMPPRICES [0] + POTPRICES [0] + SEEDPRICES [0] * 2;
+		}
+		else {
 			BinaryFormatter binFor = new BinaryFormatter ();
 			FileStream file = File.Open (SavePath, FileMode.Open);
 			PlayerData data = (PlayerData)binFor.Deserialize (file);
 			file.Close ();
 
-			isFirst = data.sIsFirst;
-			FirstTimeDialogs.stage	=	data.sStage;
-			TravelScript.PLACE = data.sPlace;
-
-			Debug.Log ("LOADED :" + TravelScript.PLACE);
-			Debug.Log ("LOADED STAGEEE: " + FirstTimeDialogs.stage);
-			Debug.Log (data.sStage);
-			//-------------------------------------INV
+			//______________________First Time variables
+			isFirst	= data.sIsFirst;
+			FirstTimeDialogs.stage	= data.sStage;
+			//-------------------------------------
+			//
+			//________________________________Current place
+			TravelScript.PLACE	= data.sPlace;
+			TravelScript.isReload = true;
+			//----------------------------------
+			//
+			//_____________________OFFLINE PROGRESS
+			TimeSpan	timePassed		= DateTime.Now.Subtract(data.sDateTime);
+			float		secondsPassed	= (float)timePassed.TotalSeconds;
+			//-------------------------------------
+			//
+			//________________________INV
 			Inv.MONEY	=	data.sMoney;
 			Inv.SEEDS	=	data.sSeeds;
 			Inv.NUGS	=	data.sNugs;
+			Inv.MISC	=	data.sMisc;
 			Inv.SPECIAL	=	data.sSpecial;
-			//-------------------------------------WEED 0 LOAD
-			WEED0.timeLeft		=	data.timeLeft[0];
-			WEED0.seedTime		=	data.seedTime [0];
-			WEED0.potID			=	data.potID [0];
-			WEED0.seedID		=	data.seedID [0];
-			WEED0.lampID		=	data.lampID [0];
-			WEED0.growthPerc	=	data.growthPerc [0];
-			WEED0.growthStage	=	data.growthStage [0];
-			WEED0.WaterS		=	data.WaterS [0];
-			WEED0.isEmpty		=	data.isEmpty [0];
-			WEED0.isGrown		=	data.isGrown [0];
-			WEED0.isUnlocked	=	data.isUnlocked [0];
-			WEED0.isBuilt		=	data.isBuilt[0];
-
-			WEED1.timeLeft		=	data.timeLeft[1];
-			WEED1.seedTime		=	data.seedTime [1];
-			WEED1.potID			=	data.potID [1];
-			WEED1.seedID		=	data.seedID [1];
-			WEED1.lampID		=	data.lampID [1];
-			WEED1.growthPerc	=	data.growthPerc [1];
-			WEED1.growthStage	=	data.growthStage [1];
-			WEED1.WaterS		=	data.WaterS [1];
-			WEED1.isEmpty		=	data.isEmpty [1];
-			WEED1.isGrown		=	data.isGrown [1];
-			WEED1.isUnlocked	=	data.isUnlocked [1];
-			WEED1.isBuilt		=	data.isBuilt[1];
-
-			WEED2.timeLeft		=	data.timeLeft[2];
-			WEED2.seedTime		=	data.seedTime [2];
-			WEED2.potID			=	data.potID [2];
-			WEED2.seedID		=	data.seedID [2];
-			WEED2.lampID		=	data.lampID [2];
-			WEED2.growthPerc	=	data.growthPerc [2];
-			WEED2.growthStage	=	data.growthStage [2];
-			WEED2.WaterS		=	data.WaterS [2];
-			WEED2.isEmpty		=	data.isEmpty [2];
-			WEED2.isGrown		=	data.isGrown [2];
-			WEED2.isUnlocked	=	data.isUnlocked [2];
-			WEED2.isBuilt		=	data.isBuilt[2];
-
-			WEED3.timeLeft		=	data.timeLeft[3];
-			WEED3.seedTime		=	data.seedTime [3];
-			WEED3.potID			=	data.potID [3];
-			WEED3.seedID		=	data.seedID [3];
-			WEED3.lampID		=	data.lampID [3];
-			WEED3.growthPerc	=	data.growthPerc [3];
-			WEED3.growthStage	=	data.growthStage [3];
-			WEED3.WaterS		=	data.WaterS [3];
-			WEED3.isEmpty		=	data.isEmpty [3];
-			WEED3.isGrown		=	data.isGrown [3];
-			WEED3.isUnlocked	=	data.isUnlocked [3];
-			WEED3.isBuilt		=	data.isBuilt[3];
-
-			WEED4.timeLeft		=	data.timeLeft[4];
-			WEED4.seedTime		=	data.seedTime [4];
-			WEED4.potID			=	data.potID [4];
-			WEED4.seedID		=	data.seedID [4];
-			WEED4.lampID		=	data.lampID [4];
-			WEED4.growthPerc	=	data.growthPerc [4];
-			WEED4.growthStage	=	data.growthStage [4];
-			WEED4.WaterS		=	data.WaterS [4];
-			WEED4.isEmpty		=	data.isEmpty [4];
-			WEED4.isGrown		=	data.isGrown [4];
-			WEED4.isUnlocked	=	data.isUnlocked [4];
-			WEED4.isBuilt		=	data.isBuilt[4];
-
-			if (WEED0.isBuilt [1]) {WEED0.pot.gameObject.SetActive (true);}
-			if (WEED0.isBuilt [2]) {WEED0.lamp.gameObject.SetActive (true);}
-			if (WEED1.isBuilt [1]) {WEED1.pot.gameObject.SetActive (true);}
-			if (WEED1.isBuilt [2]) {WEED1.lamp.gameObject.SetActive (true);}
-			if (WEED2.isBuilt [1]) {WEED2.pot.gameObject.SetActive (true);}
-			if (WEED2.isBuilt [2]) {WEED2.lamp.gameObject.SetActive (true);}
-			if (WEED3.isBuilt [1]) {WEED3.pot.gameObject.SetActive (true);}
-			if (WEED3.isBuilt [2]) {WEED3.lamp.gameObject.SetActive (true);}
-			if (WEED4.isBuilt [1]) {WEED4.pot.gameObject.SetActive (true);}
-			if (WEED4.isBuilt [2]) {WEED4.lamp.gameObject.SetActive (true);}
-
-			//---------------------------------OFFLINE PROGRESS
-			TimeSpan timePassed = DateTime.Now.Subtract(data.sDateTime);
-			float Seconds = (float)timePassed.TotalSeconds;
-			WEED0.timeLeft -= Seconds;
-			WEED1.timeLeft -= Seconds;
-			WEED2.timeLeft -= Seconds;
-			WEED3.timeLeft -= Seconds;
-			WEED4.timeLeft -= Seconds;
-		} else
-		{
-			Debug.Log ("WHALCEUMCE");
-			DebugText.text += "\n _FIRST_ ";
-			isFirst = true;
-			TravelScript.PLACE = 0;
-			FirstTimeDialogs.stage = 0;
-			Inv.MONEY = LAMPPRICES [0] + POTPRICES [0] + SEEDPRICES [0] * 2;
-			WEED0.isUnlocked = true;
-			WEED0.RedrawSprite ();
+			//--------------------------
+			//
+			//________________________________________WEEDS
+			for (int i = 0; i < WEEDS.Length; i++) {
+				WEEDS[i].timeLeft		=	data.timeLeft[i];
+				WEEDS[i].seedTime		=	data.seedTime [i];
+				WEEDS[i].potID			=	data.potID [i];
+				WEEDS[i].seedID			=	data.seedID[i];
+				WEEDS[i].lampID			=	data.lampID[i];
+				WEEDS[i].growthPerc		=	data.growthPerc[i];
+				WEEDS[i].growthStage	=	data.growthStage[i];
+				WEEDS[i].WaterS			=	data.WaterS[i];
+				WEEDS[i].isEmpty		=	data.isEmpty[i];
+				WEEDS[i].isGrown		=	data.isGrown[i];
+				WEEDS[i].isUnlocked		=	data.isUnlocked[i];
+				WEEDS[i].isBuilt		=	data.isBuilt[i];
+				WEEDS[i].timeLeft		-=	secondsPassed;
+				WEEDS[i].RedrawSprite();
+			}
+			//---------------------------------------------------------------
 		}
-
-		if (WEED0.isEmpty) { WEED0.pot.GetComponent<Button> ().interactable = true; } else { WEED0.pot.GetComponent<Button> ().interactable = false; }
-		if (WEED1.isEmpty) { WEED1.pot.GetComponent<Button> ().interactable = true; } else { WEED1.pot.GetComponent<Button> ().interactable = false; }
-		if (WEED2.isEmpty) { WEED2.pot.GetComponent<Button> ().interactable = true; } else { WEED2.pot.GetComponent<Button> ().interactable = false; }
-		if (WEED3.isEmpty) { WEED3.pot.GetComponent<Button> ().interactable = true; } else { WEED3.pot.GetComponent<Button> ().interactable = false; }
-		if (WEED4.isEmpty) { WEED4.pot.GetComponent<Button> ().interactable = true; } else { WEED4.pot.GetComponent<Button> ().interactable = false; }
-
-		if (Inv.SPECIAL [0]) { WEED1.isUnlocked = true;} else { WEED1.isUnlocked = false;}	//invspecial 1, 3 are tools
-		if (Inv.SPECIAL [2]) { WEED2.isUnlocked = true;} else { WEED2.isUnlocked = false;}
-		if (Inv.SPECIAL [4]) { WEED3.isUnlocked = true;} else { WEED3.isUnlocked = false;}
-		if (Inv.SPECIAL [5]) { WEED4.isUnlocked = true;} else { WEED4.isUnlocked = false;}
-		WEED0.RedrawSprite ();
-		WEED1.RedrawSprite (); 
-		WEED2.RedrawSprite ();
-		WEED3.RedrawSprite ();
-		WEED4.RedrawSprite ();
+		//
 		if (isFirst) {
 			FTDPanel.gameObject.SetActive (true);
 			FTDPanelBlocker.gameObject.SetActive (true);
@@ -334,28 +244,34 @@ public class Vars : MonoBehaviour {
 			FTDPanelBlocker.gameObject.SetActive (false);
 			FTDPanelBlocker2.gameObject.SetActive (false);
 		}
-		TravelScript.isReload = true;
-		DebugText.text += "\n isFirst:" + isFirst + " Unlocked:" + WEED0.isUnlocked + " Active:" + WEED0.gameObject.activeInHierarchy + "\n";
 	}
-	//===================SAVE/LOAD FUNCTIONS
+}
 
-}//endofclass
 
+//============PLAYER SAVE DATA
 [Serializable]
 class PlayerData {
+	
 	public DateTime	sDateTime;
 
-	//FirstTimeDialog&Place
+	//______________________First Time Dialog
 	public bool		sIsFirst;
 	public int		sStage;
+	//---------------------
+	//
+	//_____________________Place
 	public int		sPlace;
-	//INV
+	//---------------------
+	//
+	//____________________INV
 	public float	sMoney;
 	public int[]	sSeeds;
 	public int[]	sNugs;
 	public bool[]	sSpecial;
-
-	//----------------------WEEDS
+	public int[]	sMisc;
+	//--------------------
+	//
+	//________________________________________WEEDS
 	public float[]	timeLeft	= new float[5];
 	public float[]	seedTime	= new float[5];
 	public int[]	potID		= new int[5];
@@ -368,4 +284,5 @@ class PlayerData {
 	public bool[]	isGrown		= new bool[5];
 	public bool[]	isUnlocked	= new bool[5];
 	public bool[][]	isBuilt		= new bool[5][];
+	//------------------------------------------
 }

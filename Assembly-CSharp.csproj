@@ -51,6 +51,7 @@
      <Compile Include="Assets\TravelScript.cs" />
      <Compile Include="Assets\Upgrades.cs" />
      <Compile Include="Assets\Vars.cs" />
+     <Compile Include="Assets\Vibration.cs" />
      <Compile Include="Assets\Weed.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

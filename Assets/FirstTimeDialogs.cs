@@ -4,51 +4,29 @@ using System.Collections;
 
 public class FirstTimeDialogs : MonoBehaviour {
 
+	//____F_T_D___D_I_S_P_L_A_Y_S_________
 	public RectTransform FTDPanelBlocker;
 	public RectTransform FTDPanelBlocker2;
 	public RectTransform FTDPanel;
 	public Text	FTDText;
-
-
+	//---------------------
+	//
+	//___V_A_R_I_A_B_L_E_S___
 	public static int stage;
+	//-----------------------
 
-	void Start(){
-	}
-
-	void OnEnable(){
-		Dialog ();
-	}
-
-	public void BonusClix(){
-		if(Vars.isFirst){
-			Dialog ();
-		}
-		Debug.Log ("Bonus clicXX");
-		Debug.Log(stage);
-	}
-
-	public void BonusClicked(){
-		if(Vars.isFirst){
-		stage++;
-		Dialog ();
-		}
-		Debug.Log ("Bonus clicked");
-		Debug.Log(stage);
-	}
-
-	public void OnClicc(){
-		stage++;
-		Dialog ();
-	}
-
-	public void RectOffset(RectTransform rT,float left,float top,float right,float bottom){
-		rT.offsetMin = new Vector2 (left,bottom);
-		rT.offsetMax = new Vector2 (-right,-top);
-	}
-
+	/* ======================================
+		><<<<<<<< ><<<><<<<<< ><<<<<
+		><<           ><<     ><<   ><<
+		><<           ><<     ><<    ><<
+		><<<<<<       ><<     ><<    ><<
+		><<           ><<     ><<    ><<
+		><<           ><<     ><<   ><<
+		><<           ><<     ><<<<<
+	========================================== */
+	void OnEnable(){ Dialog (); }
+	//____________________Pops up dialog on stages
 	public void	Dialog(){
-		Debug.Log ("stage: " + stage);
-
 		switch (stage) {
 		case 0:
 			FTDText.text = "Welcome to Dude WEED LMAOOOOO \n (tap me)";
@@ -154,7 +132,7 @@ public class FirstTimeDialogs : MonoBehaviour {
 			break;
 		case 15:
 			FTDText.text = "You're off to grow the dankest buds ever!\n" +
-			"Remember to water your plants by clicking the water bottle! Good luck!";
+				"Remember to water your plants by clicking the water bottle! Good luck!";
 			FTDPanel.anchoredPosition3D = new Vector2 (0, 0);
 			FTDPanel.GetComponent<Button> ().interactable = true;
 			RectOffset (FTDPanelBlocker, 0, 0, 0, 0);
@@ -168,4 +146,27 @@ public class FirstTimeDialogs : MonoBehaviour {
 			break;
 		}
 	}
+	//----------------------------------------------------
+	//
+	//_______________________P_O_S_I_T_I_O_N___T_O_U_C_H___B_L_O_C_K_E_R_S_________________
+	public void RectOffset(RectTransform rT,float left,float top,float right,float bottom){
+		rT.offsetMin = new Vector2 (left,bottom);
+		rT.offsetMax = new Vector2 (-right,-top);
+	}
+	//---------------------------------------------
+	//
+	//______________________Dialog
+	public void BonusClix(){
+		if (Vars.isFirst) { Dialog (); }
+	}
+	//-----------------
+	//
+	//_________________________Dialog+Stage
+	public void BonusClicked(){
+		if(Vars.isFirst){
+		stage++;
+		Dialog ();
+		}
+	}
+	//---------------------------
 }

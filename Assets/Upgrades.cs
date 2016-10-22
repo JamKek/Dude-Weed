@@ -3,98 +3,51 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class Upgrades : MonoBehaviour {
-	
-	public Weed WEED0;
-	public Weed WEED1;
-	public Weed WEED2;
-	public Weed WEED3;
-	public Weed WEED4;
 
-	//============================SEED_SHOP
-	public Button	BuySeed0;
-	public Text 	BuySeed0Name;
-	public Text 	BuySeed0Time;
-	public Text 	BuySeed0Worth;
-	public Text 	BuySeed0Price;
-	public Button	BuySeed1;
-	public Text 	BuySeed1Name;
-	public Text 	BuySeed1Time;
-	public Text 	BuySeed1Worth;
-	public Text 	BuySeed1Price;
-	public Button	BuySeed2;
-	public Text 	BuySeed2Name;
-	public Text 	BuySeed2Time;
-	public Text 	BuySeed2Worth;
-	public Text 	BuySeed2Price;
-	//=============================SEED_SHOP
-
-	//===============================NUG_SHOP
+	//______W_E_E_D_S__
+	public Weed[] WEEDS;
+	//-----------------
+	//
+	//_______S_E_E_D____M_E_N_U_
+	public ScrollRect SeedMenu;
+	public Text		SeedMenuTitle;
+	public Image[]	SeedMenuImages;
+	public Text[]	SeedMenuTexts;
+	//----------------------------
+	//
+	//______S_E_E_D___S_H_O_P___
+	public Image[]	SeedImages;
+	public Text[]	SeedNames;
+	public Text[]	SeedTimes;
+	public Text[]	SeedWorth;
+	public Text[]	SeedPrices;
+	//-------------------------
+	//
+	//______N_U_G____S_H_O_P_____
 	public Text		NugMultiText;
-	public Button	SellNug0;
-	public Text 	SellNug0Name;
-	public Text 	SellNug0Price;
-	public Button	SellNug1;
-	public Text 	SellNug1Name;
-	public Text 	SellNug1Price;
-	public Button	SellNug2;
-	public Text 	SellNug2Name;
-	public Text 	SellNug2Price;
-	//===============================NUG_SHOP
+	public Image[]	NugImages;
+	public Text[]	NugNames;
+	public Text[]	NugPrices;
+	//-------------------------
 
 	//===============================STORE_SHOP
-	public RectTransform ChooseWeed;
 	public Text	ChooseWeedText;
 
-	public Button	Lamp0;
-	public Text		Lamp0Name;
-	public Text		Lamp0Quality;
-	public Text		Lamp0Price;
-	public Button	Lamp1;
-	public Text		Lamp1Name;
-	public Text		Lamp1Quality;
-	public Text		Lamp1Price;
+	public Image[]	LampImages;
+	public Text[]	LampNames;
+	public Text[]	LampQuality;
+	public Text[]	LampPrices;
 
-	public Button	Pot0;
-	public Text		Pot0Name;
-	public Text		Pot0Quality;
-	public Text		Pot0Price;
-	public Button	Pot1;
-	public Text		Pot1Name;
-	public Text		Pot1Quality;
-	public Text		Pot1Price;
-	public Button	Pot2;
-	public Text		Pot2Name;
-	public Text		Pot2Quality;
-	public Text		Pot2Price;
-	public Button	Pot3;
-	public Text		Pot3Name;
-	public Text		Pot3Quality;
-	public Text		Pot3Price;
+	public Image[]	PotImages;
+	public Text[]	PotNames;
+	public Text[]	PotQuality;
+	public Text[]	PotPrices;
 
-	public Button	UpWeed0;
-	public Image	UpWeed0Lamp;
-	public Image	UpWeed0Plant; 
-	public Image	UpWeed0Pot;
-
-	public Button	UpWeed1;
-	public Image	UpWeed1Lamp;
-	public Image	UpWeed1Plant; 
-	public Image	UpWeed1Pot;
-
-	public Button	UpWeed2;
-	public Image	UpWeed2Lamp;
-	public Image	UpWeed2Plant; 
-	public Image	UpWeed2Pot;
-
-	public Button	UpWeed3;
-	public Image	UpWeed3Lamp;
-	public Image	UpWeed3Plant; 
-	public Image	UpWeed3Pot;
-
-	public Button	UpWeed4;
-	public Image	UpWeed4Lamp;
-	public Image	UpWeed4Plant; 
-	public Image	UpWeed4Pot;
+	public RectTransform StoreWeedMenu;
+	public Button[]	MenuWeed;
+	public Image[]	MenuWeedLamp;
+	public Image[]	MenuWeedPlant;
+	public Image[]	MenuWeedPot;
 
 	public Button	SpecialButton;
 	public Text		SpecialName; 
@@ -106,502 +59,214 @@ public class Upgrades : MonoBehaviour {
 	public Button	Tool1;
 	//==============================STORE_SHOP
 
-	//==========================SeedMenu
-	public ScrollRect SeedMenu;
-	public RectTransform SeedMenuPanel;
-	public Text SeedMenuText;
-	Text[] SeedMenuAmounts;
-	//=========================SeedMenu
-
+	//__________Variables
 	int plantID;
 	int lampID;
 	int potID;
 	int partID;
 	int nugMulti;
 	int	specPrice;
+	//-------------
+
+	/* ===============================\_
+	|				_____				\_
+	|				|_ _|				  \
+	|		   n	(O O)	 n			  |
+	|		   H   _|\_/|_   H	G O O D	  |
+	|		  nHnn/ \___/ \nnHn	 L U C K |
+	|		 <V VV /	 \ VV V>		|
+	|		  \__\/|	 |\/__/		   /
+	================================ */
 
 	void Start () {
-		BuySeed0Name.text	= Vars.SEEDNAMES [0] + " seed";
-		BuySeed0Price.text	= Vars.SEEDPRICES[0] + "$";					//===TODO
-		BuySeed0Time.text	= "Grow Time: " + Vars.SEEDTIMES [0] + "s";
-		BuySeed0Worth.text	= "Nug worth: " + Vars.NUGPRICES [0] + "$";
-		BuySeed1Name.text	= Vars.SEEDNAMES [1] + " seed";
-		BuySeed1Price.text	= Vars.SEEDPRICES[1] + "$";
-		BuySeed1Time.text	= "Grow Time: " + Vars.SEEDTIMES [1] + "s";
-		BuySeed1Worth.text	= "Nug worth: " + Vars.NUGPRICES [1] + "$";
-		BuySeed2Name.text	= Vars.SEEDNAMES [2] + " seed";
-		BuySeed2Price.text	= Vars.SEEDPRICES[2] + "$";
-		BuySeed2Time.text	= "Grow Time: " + Vars.SEEDTIMES [2] + "s";
-		BuySeed2Worth.text	= "Nug worth: " + Vars.NUGPRICES [2] + "$";
+		for (int i = 0; i < Vars.SEEDNAMES.Length; i++) {
+			SeedImages[i].sprite = Vars.SEEDSPRITES [i];
+			SeedNames [i].text	= Vars.SEEDNAMES [i] + " seed";
+			SeedPrices[i].text	= Vars.SEEDPRICES[i] + "$";
+			SeedTimes [i].text	= "Grow time: " + Vars.SEEDTIMES [i] + " seconds";
+			SeedWorth [i].text	= "Nug worth: " + Vars.NUGPRICES [i] + "$";
 
-		nugMulti = 1;
-		NugMultiText.text = "1x";
-		SellNug0Name.text	= Vars.SEEDNAMES [0] + " nug";
-		SellNug0Price.text	= "Sell price: " + Vars.NUGPRICES [0] + "$";
-		SellNug1Name.text	= Vars.SEEDNAMES [1] + " nug";
-		SellNug1Price.text	= "Sell price: " + Vars.NUGPRICES [1] + "$";
-		SellNug2Name.text	= Vars.SEEDNAMES [2] + " nug";
-		SellNug2Price.text	= "Sell price: " + Vars.NUGPRICES [2] + "$";
-
-		Lamp0Name.text		= Vars.LAMPNAMES [0];
-		Lamp0Quality.text	= "Quality rating: " + Vars.LAMPMULTIS [0] + "x";
-		Lamp0Price.text		= Vars.LAMPPRICES [0] + "$";
-		Lamp1Name.text		= Vars.LAMPNAMES [1];
-		Lamp1Quality.text	= "Quality rating: " + Vars.LAMPMULTIS [1] + "x";
-		Lamp1Price.text		= Vars.LAMPPRICES [1] + "$";
-
-		Pot0Name.text		= Vars.POTNAMES [0];
-		Pot0Quality.text	= "Quality rating: " + Vars.POTMULTIS [0] + "x";
-		Pot0Price.text		= Vars.POTPRICES [0] + "$";
-		Pot1Name.text		= Vars.POTNAMES [1];
-		Pot1Quality.text	= "Quality rating: " + Vars.POTMULTIS [1] + "x";
-		Pot1Price.text		= Vars.POTPRICES [1] + "$";
-		Pot2Name.text		= Vars.POTNAMES [2];
-		Pot2Quality.text	= "Quality rating: " + Vars.POTMULTIS [2] + "x";
-		Pot2Price.text		= Vars.POTPRICES [2] + "$";
-		Pot3Name.text		= Vars.POTNAMES [3];
-		Pot3Quality.text	= "Quality rating: " + Vars.POTMULTIS [3] + "x";
-		Pot3Price.text		= Vars.POTPRICES [3] + "$";
-		Tool0.gameObject.SetActive (false);
-		Tool1.gameObject.SetActive (false);
-
+			NugImages[i].sprite	= Vars.NUGSPRITES[i];
+			NugNames [i].text	= Vars.SEEDNAMES[i] + " nug";
+			NugPrices[i].text	= "Sell price: " + Vars.NUGPRICES[i] + "$";
+		}
+		for (int i = 0; i < Vars.LAMPNAMES.Length; i++) {
+			LampImages[i].sprite = Vars.LAMPSPRITES [i];
+			LampNames[i].text	= Vars.LAMPNAMES [i];
+			LampPrices[i].text	= Vars.LAMPPRICES [i] + "$";
+			LampQuality[i].text	= "Quality rating: " + Vars.LAMPMULTIS[i];
+		}
+		for (int i = 0; i < Vars.POTNAMES.Length; i++) {
+			PotImages[i].sprite	= Vars.POTSPRITES [i];
+			PotNames[i].text	= Vars.POTNAMES [i];
+			PotQuality[i].text	= "Quality rating: " + Vars.POTMULTIS [i];
+			PotPrices[i].text	= Vars.POTPRICES[i] + "$";
+		}
 		plantID = 0;
 		lampID = 0;
 		potID = 0;
 		partID = 0;
 		specPrice = 0;
+		nugMulti = 1;
+		NugMultiText.text = "1x";
 		ChooseWeedText.text = "Choose the plant you want to upgrade";
-		ChooseWeed.gameObject.SetActive (false);
-		SeedMenu.gameObject.SetActive (false);
-		SeedMenuAmounts = SeedMenuPanel.GetComponentsInChildren<Text>();
-	}
-
-	void Update () {
-		//===========================Update numbers, buying availability
-		if(TravelScript.PLACE == 0){
-			for (int s = 0;s < SeedMenuAmounts.Length;s++)
-			{
-				SeedMenuAmounts[s].text = Inv.SEEDS[s].ToString();
-			}
-		}
-		else if(TravelScript.PLACE == 3){
-			if (Inv.SPECIAL [1] == true) {
-				Tool0.gameObject.SetActive (true);
-			} else { Tool0.gameObject.SetActive (false); }
-
-			if (Inv.SPECIAL [3] == true) {
-				Tool1.gameObject.SetActive (true);
-			} else { Tool1.gameObject.SetActive (false); }
-		}
-		else if(TravelScript.PLACE == 4){
-			if (Inv.NUGS[0] >= nugMulti) {
-				SellNug0Price.color = Color.black;
-			} else { SellNug0Price.color = Color.red; }
-			if (Inv.NUGS[1] >= nugMulti) {
-				SellNug1Price.color = Color.black;
-			} else { SellNug1Price.color = Color.red; }
-			if (Inv.NUGS[2] >= nugMulti) {
-				SellNug2Price.color = Color.black;
-			} else { SellNug2Price.color = Color.red; }
-		}
-		else if (TravelScript.PLACE == 5) {
-			if (Inv.MONEY >= Vars.SEEDPRICES[0]) {
-				BuySeed0Price.color = Color.black;
-			} else { BuySeed0Price.color = Color.red; }
-			if (Inv.MONEY >= Vars.SEEDPRICES[1]) {
-				BuySeed1Price.color = Color.black;
-			} else { BuySeed1Price.color = Color.red; }
-			if (Inv.MONEY >= Vars.SEEDPRICES[2]) {
-				BuySeed2Price.color = Color.black;
-			} else { BuySeed2Price.color = Color.red; }
-		}
-		else if (TravelScript.PLACE == 6) {
-			if (WEED0.gameObject.activeInHierarchy) {
-				UpWeed0.gameObject.SetActive (true);
-				if (WEED0.lamp.gameObject.activeInHierarchy) { UpWeed0Lamp.gameObject.SetActive (true); UpWeed0Lamp.sprite = WEED0.lamp.sprite; }
-														else { UpWeed0Lamp.gameObject.SetActive(false); }
-				if (WEED0.pot.gameObject.activeInHierarchy) { UpWeed0Pot.gameObject.SetActive (true); UpWeed0Pot.sprite = WEED0.pot.sprite; }
-														else { UpWeed0Pot.gameObject.SetActive(false); }
-				if (WEED0.isBuilt[0]) { UpWeed0Plant.gameObject.SetActive (true); UpWeed0Plant.sprite = WEED0.plant.sprite; }
-														else { UpWeed0Plant.gameObject.SetActive (false); }
-			} else { UpWeed0.gameObject.SetActive (false); }
-			if (WEED1.gameObject.activeInHierarchy) {
-				UpWeed1.gameObject.SetActive (true);
-				if (WEED1.lamp.gameObject.activeInHierarchy) { UpWeed1Lamp.gameObject.SetActive (true); UpWeed1Lamp.sprite = WEED1.lamp.sprite; }
-														else { UpWeed1Lamp.gameObject.SetActive(false); }
-				if (WEED1.pot.gameObject.activeInHierarchy) { UpWeed1Pot.gameObject.SetActive (true); UpWeed1Pot.sprite = WEED1.pot.sprite; }
-														else { UpWeed1Pot.gameObject.SetActive(false); }
-				if (WEED1.isBuilt[0]) { UpWeed1Plant.gameObject.SetActive (true); UpWeed1Plant.sprite = WEED1.plant.sprite; }
-														else { UpWeed1Plant.gameObject.SetActive (false); }
-			} else { UpWeed1.gameObject.SetActive (false); }
-			if (WEED2.gameObject.activeInHierarchy) {
-				UpWeed2.gameObject.SetActive (true);
-				if (WEED2.lamp.gameObject.activeInHierarchy) { UpWeed2Lamp.gameObject.SetActive (true); UpWeed2Lamp.sprite = WEED2.lamp.sprite; }
-														else { UpWeed2Lamp.gameObject.SetActive(false); }
-				if (WEED2.pot.gameObject.activeInHierarchy) { UpWeed2Pot.gameObject.SetActive (true); UpWeed2Pot.sprite = WEED2.pot.sprite; }
-														else { UpWeed2Pot.gameObject.SetActive(false); }
-				if (WEED2.isBuilt[0]) { UpWeed2Plant.gameObject.SetActive (true); UpWeed2Plant.sprite = WEED2.plant.sprite; }
-														else { UpWeed2Plant.gameObject.SetActive (false); }
-			} else { UpWeed2.gameObject.SetActive (false); }
-			if (WEED3.gameObject.activeInHierarchy) {
-				UpWeed3.gameObject.SetActive (true);
-				if (WEED3.lamp.gameObject.activeInHierarchy) { UpWeed3Lamp.gameObject.SetActive (true); UpWeed3Lamp.sprite = WEED3.lamp.sprite; }
-														else { UpWeed3Lamp.gameObject.SetActive(false); }
-				if (WEED3.pot.gameObject.activeInHierarchy) { UpWeed3Pot.gameObject.SetActive (true); UpWeed3Pot.sprite = WEED3.pot.sprite; }
-														else { UpWeed3Pot.gameObject.SetActive(false); }
-				if (WEED3.isBuilt[0]) { UpWeed3Plant.gameObject.SetActive (true); UpWeed3Plant.sprite = WEED3.plant.sprite; }
-														else { UpWeed3Plant.gameObject.SetActive (false); }
-			} else { UpWeed3.gameObject.SetActive (false); }
-			if (WEED4.gameObject.activeInHierarchy) {
-				UpWeed4.gameObject.SetActive (true);
-				if (WEED4.lamp.gameObject.activeInHierarchy) { UpWeed4Lamp.gameObject.SetActive (true); UpWeed4Lamp.sprite = WEED4.lamp.sprite; }
-														else { UpWeed4Lamp.gameObject.SetActive(false); }
-				if (WEED4.pot.gameObject.activeInHierarchy) { UpWeed4Pot.gameObject.SetActive (true); UpWeed4Pot.sprite = WEED4.pot.sprite; }
-														else { UpWeed4Pot.gameObject.SetActive(false); }
-				if (WEED4.isBuilt[0]) { UpWeed4Plant.gameObject.SetActive (true); UpWeed4Plant.sprite = WEED4.plant.sprite; }
-														else { UpWeed4Plant.gameObject.SetActive (false); }
-			} else { UpWeed4.gameObject.SetActive (false); }
-
-			if (Inv.MONEY >= Vars.LAMPPRICES [0]) {
-				Lamp0Price.color = Color.white;
-			} else {Lamp0Price.color = Color.red;}
-			if (Inv.MONEY >= Vars.LAMPPRICES [1]) {
-				Lamp1Price.color = Color.white;
-			} else {Lamp1Price.color = Color.red;}
-			if (Inv.MONEY >= Vars.POTPRICES [0]) {
-				Pot0Price.color = Color.white;
-			} else {Pot0Price.color = Color.red;}
-			if (Inv.MONEY >= Vars.POTPRICES [1]) {
-				Pot1Price.color = Color.white;
-			} else {Pot1Price.color = Color.red;}
-			if (Inv.MONEY >= Vars.POTPRICES [2]) {
-				Pot2Price.color = Color.white;
-			} else {Pot2Price.color = Color.red;}
-			if (Inv.MONEY >= Vars.POTPRICES [3]) {
-				Pot3Price.color = Color.white;
-			} else {Pot3Price.color = Color.red;}
-
-			if (Inv.SPECIAL [0] != true) {
-				SpecialImage.sprite = Resources.Load<Sprite> ("Images/Pots/pot_3");
-				SpecialName.text = Vars.SPECIALNAMES [0];
-				SpecialDescription.text = Vars.SPECIALDESCRIPTIONS [0];
-				SpecialPrice.text = Vars.SPECIALPRICES [0] + "$";
-				specPrice = Vars.SPECIALPRICES [0];
-			} else if (Inv.SPECIAL [1] != true) {
-				SpecialImage.sprite = Resources.Load<Sprite> ("Images/Tools/tool_0");
-				SpecialName.text = Vars.SPECIALNAMES [1];
-				SpecialDescription.text = Vars.SPECIALDESCRIPTIONS [1];
-				SpecialPrice.text = Vars.SPECIALPRICES [1] + "$";
-				specPrice = Vars.SPECIALPRICES [1];
-			} else if (Inv.SPECIAL [2] != true) {
-				SpecialImage.sprite = Resources.Load<Sprite> ("Images/Pots/pot_3");
-				SpecialName.text = Vars.SPECIALNAMES [2];
-				SpecialDescription.text = Vars.SPECIALDESCRIPTIONS [2];
-				SpecialPrice.text = Vars.SPECIALPRICES [2] + "$";
-				specPrice = Vars.SPECIALPRICES [2];
-			} else if (Inv.SPECIAL [3] != true) {
-				SpecialImage.sprite = Resources.Load<Sprite> ("Images/Tools/tool_1");
-				SpecialName.text = Vars.SPECIALNAMES [3];
-				SpecialDescription.text = Vars.SPECIALDESCRIPTIONS [3];
-				SpecialPrice.text = Vars.SPECIALPRICES [3] + "$";
-				specPrice = Vars.SPECIALPRICES [3];
-			} else if (Inv.SPECIAL [4] != true) {
-				SpecialImage.sprite = Resources.Load<Sprite> ("Images/Pots/pot_3");
-				SpecialName.text = Vars.SPECIALNAMES [4];
-				SpecialDescription.text = Vars.SPECIALDESCRIPTIONS [4];
-				SpecialPrice.text = Vars.SPECIALPRICES [4] + "$";
-				specPrice = Vars.SPECIALPRICES [4];
-			} else if (Inv.SPECIAL [5] != true) {
-				SpecialImage.sprite = Resources.Load<Sprite> ("Images/Pots/pot_3");
-				SpecialName.text = Vars.SPECIALNAMES [5];
-				SpecialDescription.text = Vars.SPECIALDESCRIPTIONS [5];
-				SpecialPrice.text = Vars.SPECIALPRICES [5] + "$";
-				specPrice = Vars.SPECIALPRICES [5];
-			} else {
-				SpecialName.text = "Well Done!";
-				SpecialImage.sprite = Resources.Load<Sprite>("Images/Misc/waterbottle");
-				SpecialDescription.text = "You've bought all the upgrades! Feel like accomplished something?";
-				SpecialPrice.text = "420$";
-			}
-			if(Inv.MONEY >= specPrice){
-				SpecialPrice.color = Color.white;
-			} else { SpecialPrice.color = Color.red; }
-		}
-
-
-	}
-	//=================endof UPDATE
-
-
-	//============================================================SEEDMENU
-	public void SeedChoose(int ID){ //id is the pot id
-		switch(ID){
-		case 0:
-			if (WEED0.isEmpty) {
-				SeedMenu.gameObject.SetActive (true);
-				plantID = ID;
-			} else {Debug.Log("WARNING: SeedChoose" + ID);}
-			break;
-
-		case 1:
-			if (WEED1.isEmpty) {
-				SeedMenu.gameObject.SetActive (true);
-				plantID = ID;
-			} else {Debug.Log("WARNING: SeedChoose" + ID);}
-			break;
-
-		case 2:
-			if (WEED2.isEmpty) {
-				SeedMenu.gameObject.SetActive (true);
-				plantID = ID;
-			} else {Debug.Log("WARNING: SeedChoose" + ID);}
-			break;
-
-		case 3:
-			if (WEED3.isEmpty) {
-				SeedMenu.gameObject.SetActive (true);
-				plantID = ID;
-			} else {Debug.Log("WARNING: SeedChoose" + ID);}
-			break;
-
-		case 4:
-			if (WEED4.isEmpty) {
-				SeedMenu.gameObject.SetActive (true);
-				plantID = ID;
-			} else {Debug.Log("WARNING: SeedChoose" + ID);}
-			break;
-		}
-	}
-	public void SeedChosen(int ID){ //id is the seed id
-		switch (plantID) {
-		case 0:
-			if (Inv.SEEDS[ID] > 0) {
-				Inv.SEEDS[ID]--;
-				WEED0.seedID = ID;
-				WEED0.isEmpty = false;
-				WEED0.seedTime = Vars.SEEDTIMES [ID];
-				WEED0.timeLeft = WEED0.seedTime;
-				WEED0.RedrawSprite ();
-				WEED0.pot.GetComponent<Button> ().interactable = false;
-				SeedMenuText.color = Color.white;
-				SeedMenuText.text = "Choose your seed!";
-				SeedMenu.gameObject.SetActive (false);
-			} else {
-				SeedMenuText.color = Color.red;
-				SeedMenuText.text = "No seeds :(";
-			}
-			break;
-		case 1:
-			if (Inv.SEEDS[ID] > 0) {
-				Inv.SEEDS[ID]--;
-				WEED1.seedID = ID;
-				WEED1.isEmpty = false;
-				WEED1.seedTime = Vars.SEEDTIMES [ID];
-				WEED1.timeLeft = WEED1.seedTime;
-				WEED1.RedrawSprite ();
-				WEED1.pot.GetComponent<Button> ().interactable = false;
-				SeedMenuText.color = Color.white;
-				SeedMenuText.text = "Choose your seed!";
-				SeedMenu.gameObject.SetActive (false);
-			} else {
-				SeedMenuText.color = Color.red;
-				SeedMenuText.text = "No seeds :(";
-			}
-			break;
-		case 2:
-			if (Inv.SEEDS[ID] > 0) {
-				Inv.SEEDS[ID]--;
-				WEED2.seedID = ID;
-				WEED2.isEmpty = false;
-				WEED2.seedTime = Vars.SEEDTIMES [ID];
-				WEED2.timeLeft = WEED2.seedTime;
-				WEED2.RedrawSprite ();
-				WEED2.pot.GetComponent<Button> ().interactable = false;
-				SeedMenuText.color = Color.white;
-				SeedMenuText.text = "Choose your seed!";
-				SeedMenu.gameObject.SetActive (false);
-			} else {
-				SeedMenuText.color = Color.red;
-				SeedMenuText.text = "No seeds :(";
-			}
-			break;
-		case 3:
-			if (Inv.SEEDS[ID] > 0) {
-				Inv.SEEDS[ID]--;
-				WEED3.seedID = ID;
-				WEED3.isEmpty = false;
-				WEED3.seedTime = Vars.SEEDTIMES [ID];
-				WEED3.timeLeft = WEED3.seedTime;
-				WEED3.RedrawSprite ();
-				WEED3.pot.GetComponent<Button> ().interactable = false;
-				SeedMenuText.color = Color.white;
-				SeedMenuText.text = "Choose your seed!";
-				SeedMenu.gameObject.SetActive (false);
-			} else {
-				SeedMenuText.color = Color.red;
-				SeedMenuText.text = "No seeds :(";
-			}
-			break;
-		case 4:
-			if (Inv.SEEDS[ID] > 0) {
-				Inv.SEEDS[ID]--;
-				WEED4.seedID = ID;
-				WEED4.isEmpty = false;
-				WEED4.seedTime = Vars.SEEDTIMES [ID];
-				WEED4.timeLeft = WEED4.seedTime;
-				WEED4.RedrawSprite ();
-				WEED4.pot.GetComponent<Button> ().interactable = false;
-				SeedMenuText.color = Color.white;
-				SeedMenuText.text = "Choose your seed!";
-				SeedMenu.gameObject.SetActive (false);
-			} else {
-				SeedMenuText.color = Color.red;
-				SeedMenuText.text = "No seeds :(";
-			}
-			break;
-		}
-	}
-	public void SeedMenuClose(){
+		StoreWeedMenu.gameObject.SetActive(false);
 		SeedMenu.gameObject.SetActive(false);
+		Tool0.gameObject.SetActive(false);
+		Tool1.gameObject.SetActive(false);
 	}
-	//==============================================SEEDMENU
-
-
-	//===============================================STORE_SHOP
-	public void BuyLamp(int ID){
-		if(Inv.MONEY - Vars.LAMPPRICES[ID] >= 0){
-		lampID = ID;
-		partID = 1;
-		ChooseWeed.gameObject.SetActive (true);
-		}
-	}
-	public void BuyPot(int ID){
-		if(Inv.MONEY - Vars.POTPRICES[ID] >= 0){
-			potID = ID;
-			partID = 0;
-			ChooseWeed.gameObject.SetActive (true);
-		}
-	}
-	public void BuyUpgrade(int ID){ //parts:  0=pot 1=lamp
-		switch (ID) { //id is the selected plant
-		case 0:
-			if ( (partID == 0 && WEED0.potID < potID) || (partID==0 && !WEED0.isBuilt[1]) ) {
-				if (Vars.isFirst) { FirstTimeDialogs.stage++; }
-				Inv.MONEY -= Vars.POTPRICES[potID];
-				WEED0.potID = potID;
-				WEED0.pot.gameObject.SetActive (true);
-				WEED0.isBuilt [1] = true;
-				WEED0.RedrawSprite ();
-				CloseUpgrade ();
-			}
-			else if ( (partID == 1 && WEED0.lampID < lampID) || (partID == 1 && !WEED0.isBuilt[2]) ) { // TODO APPLY IS BUILD[index] TO OTHER WEEDS
-				if (Vars.isFirst) { FirstTimeDialogs.stage++; }
-				Inv.MONEY -= Vars.LAMPPRICES [lampID];
-				WEED0.lampID = lampID;
-				WEED0.lamp.gameObject.SetActive (true);
-				WEED0.isBuilt [2] = true;
-				WEED0.RedrawSprite ();
-				CloseUpgrade ();
-			}
-			else {
-				ChooseWeedText.text = "Current or better upgrade is already installed on this plant";
-			}
+	void Update () {
+		switch (TravelScript.PLACE) {
+		case 0:	if(SeedMenu.gameObject.activeInHierarchy){ CheckSeedMenu(); }
 			break;
-
-		case 1:
-			if ( (partID == 0 && WEED1.potID < potID) || (partID==0 && !WEED1.isBuilt[0]) ) {
-				Inv.MONEY -= Vars.POTPRICES[potID];
-				WEED1.potID = potID;
-				WEED1.pot.gameObject.SetActive (true);
-				WEED1.RedrawSprite ();
-				CloseUpgrade ();
-			}
-			else if ( (partID == 1 && WEED1.lampID < lampID) || (partID==1 && !WEED1.isBuilt[0]) ) {
-				Inv.MONEY -= Vars.LAMPPRICES [lampID];
-				WEED1.lampID = lampID;
-				WEED1.lamp.gameObject.SetActive (true);
-				WEED1.RedrawSprite ();
-				CloseUpgrade ();
-			}
-			else {
-				ChooseWeedText.text = "Current or better upgrade is already installed on this plant";
-			}
+		case 3:	CheckTools();
 			break;
-
-		case 2:
-			if ( (partID == 0 && WEED2.potID < potID) || (partID==0 && !WEED2.isBuilt[0]) ) {
-				Inv.MONEY -= Vars.POTPRICES[potID];
-				WEED2.potID = potID;
-				WEED2.pot.gameObject.SetActive (true);
-				WEED2.RedrawSprite ();
-				CloseUpgrade ();
-			}
-			else if ( (partID == 1 && WEED2.lampID < lampID) || (partID==1 && !WEED2.isBuilt[0]) ) {
-				Inv.MONEY -= Vars.LAMPPRICES [lampID];
-				WEED2.lampID = lampID;
-				WEED2.lamp.gameObject.SetActive (true);
-				WEED2.RedrawSprite ();
-				CloseUpgrade ();
-			}
-			else {
-				ChooseWeedText.text = "Current or better upgrade is already installed on this plant";
-			}
+		case 4:	CheckNugs();
 			break;
-
-		case 3:
-			if ( (partID == 0 && WEED3.potID < potID) || (partID==0 && !WEED3.isBuilt[0]) ) {
-				Inv.MONEY -= Vars.POTPRICES[potID];
-				WEED3.potID = potID;
-				WEED3.pot.gameObject.SetActive (true);
-				WEED3.RedrawSprite ();
-				CloseUpgrade ();
-			}
-			else if ( (partID == 1 && WEED3.lampID < lampID) || (partID==1 && !WEED3.isBuilt[0]) ) {
-				Inv.MONEY -= Vars.LAMPPRICES [lampID];
-				WEED3.lampID = lampID;
-				WEED3.lamp.gameObject.SetActive (true);
-				WEED3.RedrawSprite ();
-				CloseUpgrade ();
-			}
-			else {
-				ChooseWeedText.text = "Current or better upgrade is already installed on this plant";
-			}
+		case 5:	CheckSeeds();
 			break;
-
-		case 4:
-			if ( (partID == 0 && WEED4.potID < potID) || (partID==0 && !WEED4.isBuilt[0]) ) {
-				Inv.MONEY -= Vars.POTPRICES[potID];
-				WEED4.potID = potID;
-				WEED4.pot.gameObject.SetActive (true);
-				WEED4.RedrawSprite ();
-				CloseUpgrade ();
-			}
-			else if ( (partID == 1 && WEED4.lampID < lampID) || (partID==4 && !WEED4.isBuilt[0]) ) {
-				Inv.MONEY -= Vars.LAMPPRICES [lampID];
-				WEED4.lampID = lampID;
-				WEED4.lamp.gameObject.SetActive (true);
-				WEED4.RedrawSprite ();
-				CloseUpgrade ();
-			}
-			else {
-				ChooseWeedText.text = "Current or better upgrade is already installed on this plant";
-			}
+		case 6:	CheckLamps();
+				CheckPots ();
+				CheckSpecial();
+				if(StoreWeedMenu.gameObject.activeInHierarchy){ CheckWeedMenu(); }
 			break;
 		}
 	}
-	public void CloseUpgrade(){
-		ChooseWeedText.text = "Choose the plant you want to upgrade";
-		ChooseWeed.gameObject.SetActive (false);
-	}
-	//=============================================STORE_SHOP
 
-	//=========================================SEED NUG SHOP
+
+	//____________________S_E_E_D__M_E_N_U__C_H_E_C_K______
+	void CheckSeedMenu(){
+		for (int i = 0; i < Vars.SEEDNAMES.Length; i++) {
+			SeedMenuTexts[i].text = Inv.SEEDS[i].ToString ();
+			SeedMenuImages [i].sprite = Vars.SEEDSPRITES [i];
+		}
+	}
+	//-----------------------------------------------------
+	//
+	//_________________G_A_R_A_G_E___C_H_E_C_K____________________________
+	void CheckTools(){
+		if (Inv.SPECIAL[1] == true) { Tool0.gameObject.SetActive(true); }
+		else { Tool0.gameObject.SetActive(false); }
+
+		if (Inv.SPECIAL[3] == true) { Tool1.gameObject.SetActive(true); }
+		else { Tool1.gameObject.SetActive(false); }
+	}
+	//-----------------------------------------------
+	//
+	//__________________N_U_G__S_H_O_P__C_H_E_C_K_____
+	void CheckNugs(){
+		for (int i = 0; i < NugPrices.Length; i++){
+			NugPrices[i].color = (Inv.NUGS[i] >= nugMulti) ? Color.black : Color.red;
+		}
+	}
+	//------------------------------------------------------------------
+	//
+	//_________________S_E_E_D__S_H_O_P__C_H_E_C_K____
+	void CheckSeeds(){
+		for (int i = 0; i < SeedPrices.Length; i++) {
+			SeedPrices[i].color = (Inv.MONEY >= Vars.SEEDPRICES[i]) ? Color.black : Color.red;
+		}
+	}
+	//-------------------------------------------------------------------
+	//
+	//_____________________S_T_O_R_E___S_H_O_P___C_H_E_C_K_S___________________________________
+	void CheckLamps(){
+		for (int i = 0; i < Vars.LAMPNAMES.Length; i++) {
+			LampPrices[i].color = (Inv.MONEY >= Vars.LAMPPRICES[i]) ? Color.white : Color.red;
+		}
+	}
+	void CheckPots(){
+		for (int i = 0; i < Vars.POTNAMES.Length; i++) {
+			PotPrices[i].color = (Inv.MONEY >= Vars.POTPRICES[i]) ? Color.white : Color.red;
+		}
+	}
+	void CheckSpecial(){
+		int cSpec = 0;
+		for(int i = 0;i < Inv.SPECIAL.Length;i++) {
+			if(!Inv.SPECIAL[i]){ break; }
+			else{ cSpec++; }
+		}
+		if (cSpec < Inv.SPECIAL.Length) {
+			if		(cSpec == 1) { SpecialImage.sprite = Vars.TOOLSPRITES[0]; }
+			else if (cSpec == 3) { SpecialImage.sprite = Vars.TOOLSPRITES[1]; }
+			else				 { SpecialImage.sprite = Vars.POTSPRITES [3]; }
+			SpecialName.text = Vars.SPECIALNAMES [cSpec];
+			SpecialDescription.text	= Vars.SPECIALDESCRIPTIONS [cSpec];
+			SpecialPrice.text = Vars.SPECIALPRICES [cSpec] + "$";
+			specPrice = Vars.SPECIALPRICES [cSpec];
+		}
+		else {
+			SpecialName.text = "Well Done!";
+			SpecialImage.sprite = Resources.Load<Sprite>("Images/Misc/waterbottle");
+			SpecialDescription.text = "You've bought all the upgrades! Feel like accomplished something?";
+			SpecialPrice.text = "SIX GAZILLION$";
+		}
+		SpecialPrice.color = (Inv.MONEY >= specPrice) ? Color.white : Color.red;
+	}
+	void CheckWeedMenu(){
+		for (int i = 0; i < WEEDS.Length; i++) {
+			if (!WEEDS[i].gameObject.activeInHierarchy){MenuWeed[i].gameObject.SetActive(false); }
+			else {
+				MenuWeed[i].gameObject.SetActive (true);
+				if (!WEEDS[i].lamp.gameObject.activeInHierarchy) { MenuWeedLamp[i].gameObject.SetActive(false); }
+				else {
+					MenuWeedLamp[i].gameObject.SetActive (true);
+					MenuWeedLamp[i].sprite = WEEDS[i].lamp.sprite;
+				}
+				if (!WEEDS[i].pot.gameObject.activeInHierarchy) { MenuWeedPot[i].gameObject.SetActive(false); }
+				else {
+					MenuWeedPot[i].gameObject.SetActive(true);
+					MenuWeedPot[i].sprite = WEEDS[i].pot.sprite;
+				}
+				if (WEEDS[i].isEmpty) { MenuWeedPlant[i].gameObject.SetActive(false); }
+				else {
+					MenuWeedPlant[i].gameObject.SetActive(true);
+					MenuWeedPlant[i].sprite = WEEDS[i].plant.sprite;
+				}
+
+			}
+		}
+	}
+	//----------------------------------------------------------------
+	//
+	//________________________________S_E_E_D___M_E_N_U________________
+	public void SeedChoose(int ID){
+		if(WEEDS[ID].isEmpty){
+			plantID = ID;
+			SeedMenu.gameObject.SetActive(true);
+		}
+	}
+	public void SeedChosen(int ID){
+		if (Inv.SEEDS [ID] > 0) {
+			Inv.SEEDS[ID]--;
+
+			WEEDS[plantID].seedID = ID;
+			WEEDS[plantID].isEmpty = false;
+			WEEDS[plantID].seedTime = Vars.SEEDTIMES[ID];
+			WEEDS[plantID].timeLeft = Vars.SEEDTIMES[ID];
+			WEEDS[plantID].RedrawSprite ();
+
+			SeedMenuTitle.color = Color.white;
+			SeedMenuTitle.text = "Choose your seed!";
+			SeedMenu.gameObject.SetActive (false);
+		} else {
+			SeedMenuTitle.color = Color.red;
+			SeedMenuTitle.text = "No seeds :(";
+		}
+	}
+	public void SeedMenuClose(){ SeedMenu.gameObject.SetActive(false); }
+	//------------------------------------------------------------------
+	//
+	//____________________________S_E_E_D__S_H_O_P___
 	public void BuySeed(int ID){
 		if (Inv.MONEY - Vars.SEEDPRICES [ID] >= 0) {
 			Inv.MONEY = Inv.MONEY - Vars.SEEDPRICES [ID];
 			Inv.SEEDS [ID]++;
 		}
 	}
+	//------------------------
+	//
+	//______________________________________N_U_G___S_H_O_P___________
 	public void SellNug(int ID){
 		if (Inv.NUGS[ID] - nugMulti >= 0) {
 			Inv.NUGS [ID] -= nugMulti;
@@ -625,68 +290,114 @@ public class Upgrades : MonoBehaviour {
 			break;
 		}
 	}
-	//=========================================SEED NUG SHOP
-
-	//SPECIAL BUY
-	public void SpecialButtonClick(){
-		if			(Inv.SPECIAL [0] != true && Inv.MONEY >= Vars.SPECIALPRICES [0] ) {
-			Inv.MONEY -= Vars.SPECIALPRICES [0];
-			Inv.SPECIAL [0] = true;
-
-			WEED1.gameObject.SetActive (true);
-			WEED1.isEmpty = true;
-			WEED1.isGrown = false;
-			WEED1.isUnlocked = true;
-			WEED1.RedrawSprite ();
-		}
-		else if		(Inv.SPECIAL [1] != true && Inv.MONEY >= Vars.SPECIALPRICES [1] ) {
-			Inv.MONEY -= Vars.SPECIALPRICES [1];
-			Inv.SPECIAL [1] = true;
-
-			Tool0.gameObject.SetActive (true);
-		}
-		else if		(Inv.SPECIAL [2] != true && Inv.MONEY >= Vars.SPECIALPRICES [2] ) {
-			Inv.MONEY -= Vars.SPECIALPRICES [2];
-			Inv.SPECIAL [2] = true;
-
-			WEED2.gameObject.SetActive(true);
-			WEED2.isEmpty = true;
-			WEED2.isGrown = false;
-			WEED2.isUnlocked = true;
-			WEED2.RedrawSprite ();
-		}
-		else if		(Inv.SPECIAL [3] != true && Inv.MONEY >= Vars.SPECIALPRICES [3] ) {
-			Inv.MONEY -= Vars.SPECIALPRICES [3];
-			Inv.SPECIAL [3] = true;
-
-			Tool1.gameObject.SetActive (true);
-		}
-		else if		(Inv.SPECIAL [4] != true && Inv.MONEY >= Vars.SPECIALPRICES [4] ) {
-			Inv.MONEY -= Vars.SPECIALPRICES [4];
-			Inv.SPECIAL [4] = true;
-
-			WEED3.gameObject.SetActive(true);
-			WEED3.isEmpty = true;
-			WEED3.isGrown = false;
-			WEED3.isUnlocked = true;
-			WEED3.RedrawSprite ();
-		}
-		else if		(Inv.SPECIAL [5] != true && Inv.MONEY >= Vars.SPECIALPRICES [5] ) {
-			Inv.MONEY -= Vars.SPECIALPRICES [5];
-			Inv.SPECIAL [5] = true;
-
-			WEED4.gameObject.SetActive(true);
-			WEED4.isEmpty = true;
-			WEED4.isGrown = false;
-			WEED4.isUnlocked = true;
-			WEED4.RedrawSprite ();
-
-			//Final upgrade
-			SpecialName.text = "Well Done!";
-			SpecialImage.sprite = Resources.Load<Sprite>("Images/Misc/waterbottle");
-			SpecialDescription.text = "You've bought all the upgrades! Feeling like you accomplished something?";
-			SpecialPrice.text = "420$";
+	//-------------------------------------------------------------------------
+	//
+	//___________________________S_T_O_R_E__S_H_O_P_________
+	public void BuyLamp(int ID){
+		if(Inv.MONEY - Vars.LAMPPRICES[ID] >= 0){
+		lampID = ID;
+		partID = 1;
+		StoreWeedMenu.gameObject.SetActive (true);
 		}
 	}
-	//SPECIAL BUY
+	public void BuyPot(int ID){
+		if(Inv.MONEY - Vars.POTPRICES[ID] >= 0){
+			potID = ID;
+			partID = 0;
+			StoreWeedMenu.gameObject.SetActive (true);
+		}
+	}
+	public void BuyUpgrade(int ID){
+		switch (partID) {
+		case 0: //POT
+			if(potID > WEEDS[ID].potID || !WEEDS[ID].isBuilt[1]){ //if pot to buy is not the same, or if there is no pot
+				if(Vars.isFirst){ FirstTimeDialogs.stage++;} //ftd
+				Inv.MONEY -= Vars.POTPRICES[potID];
+				WEEDS[ID].potID = potID;
+				WEEDS[ID].pot.gameObject.SetActive(true);
+				WEEDS[ID].isBuilt [1] = true;
+				WEEDS[ID].RedrawSprite ();
+				CloseUpgrade ();
+			}
+			else { ChooseWeedText.text = "Current or better upgrade is already installed on this plant"; }
+			break;
+		case 1: //LAMP
+			if(lampID > WEEDS[ID].lampID || !WEEDS[ID].isBuilt[2]) {	//if lamp to buy is not the same, or if there is no lamp
+				if(Vars.isFirst){ FirstTimeDialogs.stage++;}
+				Inv.MONEY -= Vars.LAMPPRICES [lampID];
+
+				WEEDS[ID].lampID = lampID;
+				WEEDS[ID].lamp.gameObject.SetActive (true);
+				WEEDS[ID].isBuilt[2] = true;
+				WEEDS[ID].RedrawSprite ();
+				CloseUpgrade ();
+			}
+			else { ChooseWeedText.text = "Current or better upgrade is already installed on this plant"; }
+			break;
+		}
+	}
+	public void CloseUpgrade(){
+		ChooseWeedText.text = "Choose the plant you want to upgrade";
+		StoreWeedMenu.gameObject.SetActive (false);
+	}
+	//--------------------------------------------------------
+	//
+	//__________________________________SPECIAL_BUY__
+	public void SpecialButtonClick(){
+		int currentSpecial = 0;
+		for(int i = 0;i < Inv.SPECIAL.Length;i++) {
+			if(!Inv.SPECIAL[i]){ break; }
+			else{ currentSpecial++; }
+		}
+		switch (currentSpecial) {
+		case 0:	//Second Pot
+			if (Inv.MONEY >= Vars.SPECIALPRICES [currentSpecial]) {
+				Inv.MONEY -= Vars.SPECIALPRICES [currentSpecial];
+				Inv.SPECIAL [0] = true;
+				WEEDS [1].isUnlocked = true;
+				WEEDS [1].RedrawSprite ();
+			}
+			break;
+		case 1:	//First Tool
+			if (Inv.MONEY >= Vars.SPECIALPRICES [currentSpecial]) {
+				Inv.MONEY -= Vars.SPECIALPRICES [1];
+				Inv.SPECIAL [1] = true;
+			}
+			break;
+		case 2:	//Third Pot
+			if (Inv.MONEY >= Vars.SPECIALPRICES [currentSpecial]) {
+				Inv.MONEY -= Vars.SPECIALPRICES [currentSpecial];
+				Inv.SPECIAL [2] = true;
+				WEEDS [2].isUnlocked = true;
+				WEEDS [2].RedrawSprite ();
+			}
+			break;
+		case 3:	//Second Tool
+			if (Inv.MONEY >= Vars.SPECIALPRICES [currentSpecial]) {
+				Inv.MONEY -= Vars.SPECIALPRICES [1];
+				Inv.SPECIAL [3] = true;
+			}
+			break;
+		case 4:	//Fourth Pot
+			if (Inv.MONEY >= Vars.SPECIALPRICES [currentSpecial]) {
+				Inv.MONEY -= Vars.SPECIALPRICES [currentSpecial];
+				Inv.SPECIAL [4] = true;
+				WEEDS[3].isUnlocked = true;
+				WEEDS[3].RedrawSprite ();
+			}
+			break;
+		case 5:	//Fifth Pot
+			if (Inv.MONEY >= Vars.SPECIALPRICES [currentSpecial]) {
+				Inv.MONEY -= Vars.SPECIALPRICES [currentSpecial];
+				Inv.SPECIAL [5] = true;
+				WEEDS [4].isUnlocked = true;
+				WEEDS [4].RedrawSprite ();
+			}
+			break;
+		case 6:
+			Debug.Log ("IT'S THE LAST UPGRADE");
+			break;
+		}
+	}
+	//------------------------------------------------------
 }
