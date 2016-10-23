@@ -16,11 +16,21 @@ public class Tool1 : MonoBehaviour {
 	public	Image	Wheel;
 	//-------------------------
 	//
+	//______O_T_H_E_R___
+	public RectTransform WheelHandle;
+	public CircleCollider2D circleColl;
+	//
+	//
 	//_V_A_R_I_A_B_L_E_S___
-	public float	rotAngle;
 	public bool		isRotating;
 	public bool		canRotate;
 	private int		_seedID;
+	public float	rewindSpeed;
+	private Vector2 dir;
+	private float angle;
+	private float dist;
+	private float check;
+	private bool checkPoint;
 	//---------------------
 
 	/* =============================================================================
@@ -42,32 +52,50 @@ public class Tool1 : MonoBehaviour {
 			  TTTTTTTTTTT      ooooooooooo      ooooooooooo   llllllll111111111111
 	================================================================================ */
 	public void Start(){
-		rotAngle = 0f;
 		_seedID = 0;
 		isRotating = false;
 		canRotate = true;
+		check = 360;
+		rewindSpeed = 1f;
 	}
 	public void Update(){
 		//________________Rotate if possible
-		if (isRotating) {
-			if (Inv.SEEDS[_seedID] >= 1) {
-				Wheel.transform.rotation = Quaternion.AngleAxis (rotAngle, Vector3.forward); //TODO
-				rotAngle += 9f;
-				Vibration.Vibrate(10);
-			} else {
-				seedAmounts[_seedID].color = Color.red; //Not enough seeds
-			}
-		} else {
-			seedAmounts[_seedID].color = Color.white;
-		}
+		if (isRotating && canRotate) {
+			
+			if (Inv.SEEDS [_seedID] >= 1) {
+				
+				seedAmounts [_seedID].color = Color.white;
+				dir =	(Input.mousePosition - Wheel.transform.position); //Vector of direction from center to mouse pos
+				dist	=	Mathf.Sqrt (dir.x * dir.x + dir.y * dir.y); //Distance between mouse and the center
+
+				if (dist < 350 && dist > 150) {
+					
+					angle =	Mathf.Atan2 (dir.x, dir.y) * Mathf.Rad2Deg;
+					angle =	(angle > 0) ? angle : angle + 360;
+
+					if ((angle < check && check - angle < 90) || angle > 350) {
+						Wheel.transform.rotation = Quaternion.AngleAxis (angle, Vector3.back);
+						check = angle;
+					}
+
+				}
+
+			} else { seedAmounts[_seedID].color = Color.red; }
+
+		} else {seedAmounts[_seedID].color = Color.white;}
 		//------------------------------------------
 		//
+		//________________CHECKPOINT
+		if(angle > 160 && angle < 200){
+			checkPoint = true;
+		}
+		//-------------------------
+		//
 		//____________________ProcessCompleted
-		if (rotAngle > 360f) {
-			rotAngle = 0;
-			Inv.SEEDS[_seedID]--;
-			Inv.MISC[0]++;
-			Vibration.Vibrate(30);
+		if(angle > 350 && checkPoint){
+			checkPoint = false;
+			Inv.SEEDS [_seedID]--;
+			Inv.MISC [0]++;
 		}
 		//-----------------------
 		//
@@ -86,20 +114,19 @@ public class Tool1 : MonoBehaviour {
 		if (ID != _seedID) {
 			_seedID = ID;
 			StartCoroutine (RewindWheel ());
+			InputImage.sprite = Vars.SEEDSPRITES[_seedID];
 		}
-		InputImage.sprite = Vars.SEEDSPRITES[_seedID];
 	}
 	//--------------------------------
 	//
 	//________________________rewind
 	IEnumerator RewindWheel(){
 		canRotate = false;
-		while (rotAngle > 0) {
-			if (rotAngle == 360){ rotAngle = 0; }
-			if (rotAngle - 9f >= 0) { rotAngle -= 9f; }
-			else { rotAngle = 0; }
-			Wheel.transform.rotation = Quaternion.AngleAxis (rotAngle, Vector3.forward);
-			Debug.Log (rotAngle);
+		while (angle < 359) {
+			if (angle == 0){ angle = 360; }
+			if (angle - rewindSpeed <= 360) { angle += rewindSpeed; }
+			else { angle = 360; }
+			Wheel.transform.rotation = Quaternion.AngleAxis (angle, Vector3.back);
 			yield return new WaitForFixedUpdate();
 		}
 		canRotate = true;
@@ -107,10 +134,10 @@ public class Tool1 : MonoBehaviour {
 	//-----------------------------
 	//
 	//____D_R_A_G___H_A_N_D_L_E_R___
-	public void WheelButtonDown(){
+	public void BeginDrag(){
 		isRotating = canRotate ? true : false;
 	}
-	public void WheelButtonUp(){
+	public void EndDrag(){
 		isRotating = false;
 	}
 	//-------------------------------
