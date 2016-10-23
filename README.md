@@ -1,4 +1,4 @@
 # Dude Weed
-Game about growing weed.
+My first ever and best game, yet.
 
-Blyat.
+Yes, it's about weed.
